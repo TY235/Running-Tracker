@@ -168,6 +168,7 @@ public class RunFragment extends Fragment implements View.OnClickListener, OnMap
     }
 
     public void updateWelcomeText(String name){
+        Log.d("checkFirstTime", "updateWelcomeText: " + name);
         String userName = "Anonymous";
         if (!name.isEmpty()){
             userName = name;

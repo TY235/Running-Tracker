@@ -193,6 +193,6 @@ public class TrackingService extends Service {
     public void onDestroy() {
         super.onDestroy();
         stopUpdateLocation();
-        Toast.makeText(this, "My Service Stopped", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "My Service Stopped", Toast.LENGTH_SHORT).show();
     }
 }

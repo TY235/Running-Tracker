@@ -94,4 +94,55 @@ public final class Utilities {
     public static String getEmojiByUnicode(int unicode){
         return new String(Character.toChars(unicode));
     }
+
+    public static int convertWeatherIcon(String weather){
+        switch (weather){
+            case "Sunny":
+                return R.drawable.ic_sunny;
+            case "Cloudy":
+                return R.drawable.ic_cloudy;
+            case "Windy":
+                return R.drawable.ic_windy;
+            case "Rainy":
+                return R.drawable.ic_rainy;
+            case "Stormy":
+                return R.drawable.ic_stormy;
+            default:
+                // If the weather is out of range, remove the background
+                return 0;
+        }
+    }
+
+    public static int convertSatisfactionIcon(String satisfaction){
+        switch (satisfaction){
+            case "Excellent":
+                return R.drawable.ic_excellent;
+            case "Good":
+                return R.drawable.ic_good;
+            case "Acceptable":
+                return R.drawable.ic_acceptable;
+            case "So-so":
+                return R.drawable.ic_so_so;
+            case "Poor":
+                return R.drawable.ic_poor;
+            default:
+                // If the weather is out of range, remove the background
+                return 0;
+        }
+    }
+
+    public static String formatDateToDDMMYYY(int date){
+        String dateString = String.valueOf(date);
+        return dateString.substring(6, 8) + "/" + dateString.substring(4, 6) + "/" +  dateString.substring(0, 4);
+    }
+
+    public static String formatTimeToHHMM(int time){
+        String timeString = String.valueOf(time);
+        if (timeString.length() == 5){
+            return timeString.substring(0, 1) + ":" + timeString.substring(1, 3);
+        }
+        else {
+            return timeString.substring(0, 2) + ":" + timeString.substring(2, 4);
+        }
+    }
 }
