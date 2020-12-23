@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RunFragment">
+
+    <!--    Base Layout     -->
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--    Start Layout     -->
+    <View
+        android:visibility="visible"
+        android:id="@+id/startFilterBtwMapNBtn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E62B2929"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:visibility="visible"
+        android:id="@+id/welcomeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:fontFamily="@font/futura_extra_bold_oblique"
+        android:gravity="center_horizontal"
+        android:lineSpacingExtra="8dp"
+
+        android:textColor="#FCFFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/startButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.59" />
+
+    <com.google.android.material.button.MaterialButton
+
+        android:visibility="visible"
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="300dp"
+        android:height="60dp"
+        app:elevation="6dp"
+        android:translationZ="6dp"
+        android:stateListAnimator="@null"
+        android:background="@drawable/ripple_effect"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/start_run_btn_text"
+        android:textSize="20sp"
+        app:backgroundTint="@color/medium_turquoise"
+        app:icon="@drawable/ic_play"
+        app:iconGravity="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.86" />
+
+    <!--    Tracking Layout     -->
+    <View
+        android:id="@+id/statsBackground"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#992B2929"
+        android:visibility="gone"
+        app:layout_constraintHeight_percent="0.19"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:gravity="center_horizontal"
+        android:textSize="17sp"
+        android:textColor="@android:color/white"
+        android:fontFamily="@font/futura_extra_bold_oblique"
+        android:text="Time\n00:00:00\nmins"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/statsBackground"
+        app:layout_constraintEnd_toStartOf="@id/distance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:gravity="center_horizontal"
+        android:textSize="26sp"
+        android:fontFamily="@font/futura_extra_bold_oblique"
+        android:textColor="@android:color/white"
+        android:text="Distance\n00.00\nkm"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/statsBackground"
+        app:layout_constraintEnd_toStartOf="@id/pace"
+        app:layout_constraintStart_toEndOf="@id/time"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/pace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:textSize="17sp"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/futura_extra_bold_oblique"
+        android:textColor="@android:color/white"
+        android:text="Pace\n00:00\nmins/km"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/statsBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/distance"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:text="Speed\n00.00 m/s"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/pace"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/time" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/pauseButton"
+        app:elevation="6dp"
+        android:translationZ="6dp"
+        android:stateListAnimator="@null"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="136dp"
+        android:height="60dp"
+        android:background="@drawable/ripple_effect"
+        app:backgroundTint="@color/maximum_blue_green"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/pause_run_btn_text"
+        android:textSize="19sp"
+        app:icon="@drawable/ic_pause"
+        app:iconGravity="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95" />
+
+
+    <!--    Pause Tracking Layout     -->
+    <View
+        android:id="@+id/pauseFilterBtwMapNBtns"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#992B2929"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        app:elevation="6dp"
+        android:translationZ="6dp"
+        android:stateListAnimator="@null"
+        android:visibility="gone"
+        android:id="@+id/resumeButton"
+        android:layout_width="69dp"
+        android:layout_height="69dp"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:backgroundTint="#00D99B"
+        app:icon="@drawable/ic_play"
+        app:iconGravity="textStart"
+        android:padding="0dp"
+        app:iconPadding="0dp"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/stopButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.86" />
+
+    <TextView
+        android:id="@+id/resumeBtnText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:text="@string/resume_btn_text"
+        android:textColor="@android:color/white"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.279"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/resumeButton" />
+
+    <com.google.android.material.button.MaterialButton
+        android:elevation="10dp"
+        android:visibility="gone"
+        android:id="@+id/stopButton"
+        android:layout_width="69dp"
+        android:layout_height="69dp"
+        android:backgroundTint="#F7665E"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        app:icon="@drawable/ic_stop"
+        app:iconGravity="textStart"
+        android:padding="0dp"
+        app:iconPadding="0dp"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/resumeButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.86" />
+
+    <TextView
+        android:id="@+id/stopBtnText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:text="@string/stop_btn_text"
+        android:textColor="@android:color/white"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.713"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stopButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Running Tracker</string>
+    <string name="nav_run_title">Run</string>
+    <string name="nav_activity_title">Activity</string>
+    <string name="nav_profile_title">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="start_run_btn_text">START</string>
+    <string name="pause_run_btn_text">PAUSE</string>
+    <string name="resume_btn_text">RESUME</string>
+    <string name="stop_btn_text">STOP</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

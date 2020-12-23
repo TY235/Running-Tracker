@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ResultFragment">
+
+    <!--  Result Layout  -->
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/resultMapView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.33"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/resultTimeHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="13dp"
+        android:fontFamily="@font/futura_extra_bold_oblique"
+        android:gravity="start"
+        android:text="Duration"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@id/resultMapView"
+        app:layout_constraintTop_toBottomOf="@id/resultMapView" />
+
+    <TextView
+        android:id="@+id/resultTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/futura_extra_bold_oblique"
+        android:gravity="start"
+        android:text="00:00:00"
+        android:textSize="26sp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@id/resultTimeHeading"
+        app:layout_constraintTop_toBottomOf="@id/resultTimeHeading" />
+
+    <TextView
+        android:id="@+id/resultSpeedHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="13dp"
+        android:fontFamily="@font/futura_extra_bold_oblique"
+        android:gravity="start"
+        android:text="Speed(m/s)"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@id/resultMapView"
+        app:layout_constraintTop_toBottomOf="@id/resultTime" />
+
+    <TextView
+        android:id="@+id/resultSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/futura_extra_bold_oblique"
+        android:gravity="start"
+        android:text="0.00"
+        android:textSize="26sp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@id/resultSpeedHeading"
+        app:layout_constraintTop_toBottomOf="@id/resultSpeedHeading" />
+
+    <TextView
+        android:id="@+id/resultKcalHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/futura_extra_bold_oblique"
+        android:gravity="center_horizontal"
+        android:text="Kcal"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/resultKcal"
+        app:layout_constraintEnd_toStartOf="@id/resultPaceHeading"
+        app:layout_constraintStart_toEndOf="@id/resultSpeedHeading" />
+
+    <TextView
+        android:id="@+id/resultKcal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/futura_extra_bold_oblique"
+        android:gravity="center_horizontal"
+        android:text="00"
+        android:textSize="26sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/resultSpeed"
+        app:layout_constraintEnd_toStartOf="@id/resultPaceHeading"
+        app:layout_constraintStart_toEndOf="@id/resultSpeedHeading" />
+
+
+    <TextView
+        android:id="@+id/resultDistanceHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="13dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/futura_extra_bold_oblique"
+        android:gravity="end"
+        android:text="Distance(km)"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@id/resultMapView"
+        app:layout_constraintTop_toBottomOf="@id/resultMapView" />
+
+    <TextView
+        android:id="@+id/resultDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:fontFamily="@font/futura_extra_bold_oblique"
+        android:gravity="end"
+        android:text="00.00"
+        android:textSize="26sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@id/resultDistanceHeading"
+        app:layout_constraintTop_toBottomOf="@id/resultDistanceHeading" />
+
+
+    <TextView
+        android:id="@+id/resultPaceHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="13dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/futura_extra_bold_oblique"
+        android:gravity="end"
+        android:text="Pace(min/km)"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@id/resultMapView"
+        app:layout_constraintTop_toBottomOf="@id/resultDistance" />
+
+    <TextView
+        android:id="@+id/resultPace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:fontFamily="@font/futura_extra_bold_oblique"
+        android:gravity="end"
+        android:text="00:00"
+        android:textSize="26sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@id/resultPaceHeading"
+        app:layout_constraintTop_toBottomOf="@id/resultPaceHeading" />
+
+    <TextView
+        android:id="@+id/weatherPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/futura_extra_bold_oblique"
+        android:gravity="start"
+        android:text="Weather"
+        android:textSize="19sp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@id/resultSpeed"
+        app:layout_constraintTop_toBottomOf="@id/resultSpeed" />
+
+    <Spinner
+        android:id="@+id/weather"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toStartOf="@+id/saveButton"
+        app:layout_constraintStart_toStartOf="@+id/weatherPrompt"
+        app:layout_constraintTop_toBottomOf="@+id/weatherPrompt" />
+
+    <TextView
+        android:id="@+id/satisfactionPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:layout_marginTop="33dp"
+        android:fontFamily="@font/futura_extra_bold_oblique"
+        android:gravity="start"
+        android:text="Satisfaction"
+        android:textSize="19sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@id/resultPace"
+        app:layout_constraintTop_toBottomOf="@id/resultPace" />
+
+    <Spinner
+        android:id="@+id/satisfaction"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.36"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/satisfactionPrompt" />
+
+    <com.google.android.material.button.MaterialButton
+        app:elevation="3dp"
+        android:translationZ="3dp"
+        android:stateListAnimator="@null"
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="230dp"
+        android:height="49dp"
+        android:fontFamily="sans-serif-black"
+        android:background="@drawable/ripple_effect"
+        android:text="SAVE"
+        android:textSize="20sp"
+        app:backgroundTint="@color/medium_turquoise"
+        app:icon="@drawable/ic_save"
+        app:iconGravity="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/discardButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
+
+    <com.google.android.material.button.MaterialButton
+        app:elevation="3dp"
+        android:translationZ="3dp"
+        android:stateListAnimator="@null"
+        android:id="@+id/discardButton"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:backgroundTint="#ED5E68"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        android:padding="0dp"
+        app:icon="@drawable/ic_delete"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/saveButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
