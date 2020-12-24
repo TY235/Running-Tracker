@@ -1,14 +1,282 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ActivityDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activityDetails_startGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activityDetails_endGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+
+    <ImageButton
+        android:id="@+id/activityDetails_backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back"
+        android:layout_marginStart="9dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/activityDetails_dateTimeGuideline"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/activityDetails_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20/02/2020"
+        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintVertical_bias="0.66"
+        app:layout_constraintBottom_toTopOf="@id/activityDetails_dateTimeGuideline"
+        app:layout_constraintStart_toEndOf="@id/activityDetails_backButton"
+        app:layout_constraintEnd_toStartOf="@id/activityDetails_deleteButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/activityDetails_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20:20"
+        android:layout_marginStart="9dp"
+        app:layout_constraintVertical_bias="0.66"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/activityDetails_dateTimeGuideline"
+        app:layout_constraintStart_toEndOf="@id/activityDetails_date" />
+
+
+    <ImageButton
+        android:id="@+id/activityDetails_deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_delete_pink"
+        android:background="@android:color/transparent"
+        android:layout_marginEnd="9dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/activityDetails_dateTimeGuideline" />
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activityDetails_dateTimeGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.09" />
+
+    <View
+        android:id="@+id/activityDetails_horizontalDividerLine"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="@id/activityDetails_endGuideline"
+        app:layout_constraintStart_toStartOf="@id/activityDetails_startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/activityDetails_dateTimeGuideline" />
+
+
+    <TextView
+        android:id="@+id/activityDetails_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/futura_extra_bold_oblique"
+        android:textColor="@color/black"
+        android:text="69.69"
+        android:layout_marginTop="6dp"
+        android:textSize="59sp"
+        app:layout_constraintStart_toStartOf="@id/activityDetails_startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/activityDetails_dateTimeGuideline"/>
+
+    <TextView
+        android:id="@+id/activityDetails_distanceHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kilometers"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintStart_toStartOf="@id/activityDetails_distance"
+        app:layout_constraintTop_toBottomOf="@id/activityDetails_distance"
+        tools:layout_editor_absoluteY="160dp" />
+
+    <TextView
+        android:id="@+id/activityDetails_pace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:text="6.96"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintStart_toStartOf="@id/activityDetails_startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/activityDetails_distanceHeading" />
+
+    <TextView
+        android:id="@+id/activityDetails_paceHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pace"
+        app:layout_constraintTop_toBottomOf="@id/activityDetails_pace"
+        app:layout_constraintStart_toStartOf="@id/activityDetails_startGuideline" />
+
+    <TextView
+        android:id="@+id/activityDetails_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="9.69"
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        app:layout_constraintStart_toEndOf="@id/activityDetails_pace"
+        app:layout_constraintEnd_toStartOf="@id/activityDetails_caloriesBurned"
+        app:layout_constraintTop_toTopOf="@id/activityDetails_pace" />
+
+    <TextView
+        android:id="@+id/activityDetails_speedHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Speed"
+        app:layout_constraintStart_toStartOf="@id/activityDetails_speed"
+        app:layout_constraintTop_toBottomOf="@id/activityDetails_speed" />
+
+    <TextView
+        android:id="@+id/activityDetails_timeTaken"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="9:33"
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toEndOf="@id/activityDetails_distance"
+        app:layout_constraintEnd_toEndOf="@id/activityDetails_endGuideline"
+        app:layout_constraintBottom_toTopOf="@id/activityDetails_timeTakenHeading" />
+
+    <TextView
+        android:id="@+id/activityDetails_timeTakenHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time"
+        app:layout_constraintStart_toStartOf="@id/activityDetails_timeTaken"
+        app:layout_constraintBottom_toBottomOf="@id/activityDetails_distanceHeading"/>
+
+    <TextView
+        android:id="@+id/activityDetails_caloriesBurned"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:text="69"
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="@id/activityDetails_endGuideline"
+        app:layout_constraintTop_toTopOf="@id/activityDetails_pace" />
+
+    <TextView
+        android:id="@+id/activityDetails_caloriesBurnedHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calories"
+        app:layout_constraintStart_toStartOf="@id/activityDetails_caloriesBurned"
+        app:layout_constraintTop_toBottomOf="@id/activityDetails_caloriesBurned" />
+
+    <Spinner
+        android:id="@+id/activityDetails_weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="39dp"
+        app:layout_constraintStart_toStartOf="@id/activityDetails_startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/activityDetails_paceHeading" />
+
+
+    <TextView
+        android:id="@+id/activityDetails_weatherHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weather"
+        app:layout_constraintStart_toStartOf="@id/activityDetails_weather"
+        app:layout_constraintTop_toBottomOf="@id/activityDetails_weather" />
+
+
+    <Spinner
+        android:id="@+id/activityDetails_satisfaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/activityDetails_timeTaken"
+        app:layout_constraintTop_toTopOf="@id/activityDetails_weather" />
+
+
+    <TextView
+        android:id="@+id/activityDetails_satisfactionHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Satisfaction"
+        app:layout_constraintStart_toStartOf="@id/activityDetails_satisfaction"
+        app:layout_constraintTop_toBottomOf="@id/activityDetails_satisfaction" />
+
+
+    <TextView
+        android:id="@+id/activityDetails_notesHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="49dp"
+        android:text="Notes: "
+        app:layout_constraintStart_toStartOf="@id/activityDetails_startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/activityDetails_weatherHeading"
+        tools:layout_editor_absoluteY="524dp" />
+
+    <EditText
+        android:id="@+id/activityDetails_notes"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.16"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine|textNoSuggestions"
+        app:layout_constraintEnd_toStartOf="@id/activityDetails_endGuideline"
+        app:layout_constraintStart_toStartOf="@id/activityDetails_notesHeading"
+        app:layout_constraintTop_toBottomOf="@id/activityDetails_notesHeading" />
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/activityDetails_updateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="159dp"
+        android:height="56dp"
+        app:elevation="6dp"
+        android:translationZ="6dp"
+        android:stateListAnimator="@null"
+        android:fontFamily="sans-serif-black"
+        android:background="@drawable/ripple_effect"
+        android:text="UPDATE"
+        android:textSize="20sp"
+        app:backgroundTint="@color/medium_turquoise"
+        app:icon="@drawable/ic_update"
+        app:iconGravity="textStart"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/activityDetails_endGuideline"
+        app:layout_constraintStart_toStartOf="@id/activityDetails_startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/activityDetails_notes" />
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

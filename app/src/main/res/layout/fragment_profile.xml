@@ -134,7 +134,6 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-
         android:contentDescription="Illustration for update profile fragment."
         android:src="@drawable/ic_running"
         app:layout_constraintBottom_toTopOf="@+id/profileCard"

@@ -38,7 +38,7 @@
         android:fontFamily="@font/futura_extra_bold_oblique"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="8dp"
-
+        android:text="Hi,\nAnonymous!\nAre You Ready\nfor a Workout?"
         android:textColor="#FCFFFFFF"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/startButton"

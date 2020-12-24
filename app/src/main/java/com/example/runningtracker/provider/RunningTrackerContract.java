@@ -27,6 +27,7 @@ public class RunningTrackerContract {
     public static final String ACTIVITIES_CALORIES_BURNED = "calories_burned";
     public static final String ACTIVITIES_WEATHER = "weather";
     public static final String ACTIVITIES_SATISFACTION = "satisfaction";
+    public static final String ACTIVITIES_NOTES = "notes";
 
     public static final String USER_ID = "_id";
     public static final String USER_NAME = "name";

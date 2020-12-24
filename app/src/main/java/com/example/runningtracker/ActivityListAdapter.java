@@ -26,10 +26,9 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
     private ArrayList<Double> caloriesBurnedList;
     private ArrayList<String> weatherList;
     private ArrayList<String> satisfactionList;
-    private Context context;
+    private RecyclerViewClickInterface recyclerViewClickInterface;
 
-    public ActivityListAdapter(Context context, ArrayList<Integer>activityIDList, ArrayList<Integer> dateList, ArrayList<Integer> timeList, ArrayList<Double> distanceList, ArrayList<Integer> timeTakenList, ArrayList<Double> speedList, ArrayList<Double> caloriesBurnedList, ArrayList<String> weatherList, ArrayList<String> satisfactionList){
-        this.context = context;
+    public ActivityListAdapter(ArrayList<Integer>activityIDList, ArrayList<Integer> dateList, ArrayList<Integer> timeList, ArrayList<Double> distanceList, ArrayList<Integer> timeTakenList, ArrayList<Double> speedList, ArrayList<Double> caloriesBurnedList, ArrayList<String> weatherList, ArrayList<String> satisfactionList, RecyclerViewClickInterface recyclerViewClickInterface){
         this.activityIDList = activityIDList;
         this.dateList = dateList;
         this.timeList = timeList;
@@ -39,6 +38,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
         this.caloriesBurnedList = caloriesBurnedList;
         this.weatherList = weatherList;
         this.satisfactionList = satisfactionList;
+        this.recyclerViewClickInterface = recyclerViewClickInterface;
     }
 
     @NonNull
@@ -86,6 +86,13 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
             weatherView = itemView.findViewById(R.id.weatherIcon);
             satisfactionView = itemView.findViewById(R.id.satisfactionIcon);
             parentLayout = itemView.findViewById(R.id.activityItems);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    recyclerViewClickInterface.onIDSent(Integer.parseInt(idView.getText().toString()));
+                }
+            });
         }
     }
 }

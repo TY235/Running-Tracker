@@ -33,7 +33,8 @@ public class RunningTrackerDBHandler extends SQLiteOpenHelper{
                 RunningTrackerContract.ACTIVITIES_PACE + " REAL, " +
                 RunningTrackerContract.ACTIVITIES_CALORIES_BURNED + " REAL, " +
                 RunningTrackerContract.ACTIVITIES_WEATHER + " VARCHAR(69), " +
-                RunningTrackerContract.ACTIVITIES_SATISFACTION + " VARCHAR(136));";
+                RunningTrackerContract.ACTIVITIES_SATISFACTION + " VARCHAR(136), " +
+                RunningTrackerContract.ACTIVITIES_NOTES + " VARCHAR(255));";
         db.execSQL(sql);
     }
 
@@ -48,8 +49,10 @@ public class RunningTrackerDBHandler extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String sql = "DROP TABLE IF EXISTS " + RunningTrackerContract.TABLE_ACTIVITIES + "," + RunningTrackerContract.TABLE_USER_DETAILS + ";";
-        db.execSQL(sql);
+        String sql1 = "DROP TABLE IF EXISTS " + RunningTrackerContract.TABLE_ACTIVITIES + ";";
+        db.execSQL(sql1);
+        String sql2 = "DROP TABLE IF EXISTS " +RunningTrackerContract.TABLE_USER_DETAILS + ";";
+        db.execSQL(sql2);
         onCreate(db);
     }
 
@@ -136,4 +139,21 @@ public class RunningTrackerDBHandler extends SQLiteOpenHelper{
         return noOfRowsAffected;
     }
 
+    public int updateNotes (int activityID, String notes){
+        int noOfRowsAffected;
+        String[] args = new String[]{String.valueOf(activityID)};
+        ContentValues values = new ContentValues();
+        values.put(RunningTrackerContract.ACTIVITIES_NOTES, notes);
+        SQLiteDatabase db = this.getWritableDatabase();
+        noOfRowsAffected = db.update(RunningTrackerContract.TABLE_ACTIVITIES, values, RunningTrackerContract.ACTIVITIES_ID + "=?", args);
+        return noOfRowsAffected;
+    }
+
+    public boolean deleteActivity (int activityID) {
+        int noOfRowsAffected;
+        String[] args = new String[]{String.valueOf(activityID)};
+        SQLiteDatabase db = this.getWritableDatabase();
+        noOfRowsAffected = db.delete(RunningTrackerContract.TABLE_ACTIVITIES, RunningTrackerContract.ACTIVITIES_ID + "=?", args);
+        return noOfRowsAffected == 1;
+    }
 }
