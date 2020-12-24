@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/statsOverview_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_margin="9dp"
+        android:text="All Time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/statsOverviewItems_totalDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@id/statsOverviewItems_highestSpeed"
+        app:layout_constraintStart_toStartOf="@id/statsOverviewItems_totalDistanceHeading"
+        app:layout_constraintEnd_toEndOf="@id/statsOverviewItems_totalDistanceHeading"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="69.69" />
+
+    <TextView
+        android:id="@+id/statsOverviewItems_totalDistanceHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Kilometers"
+        app:layout_constraintTop_toBottomOf="@id/statsOverviewItems_totalDistance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/statsOverviewItems_totalRuns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/statsOverviewItems_totalRunHeading"
+        app:layout_constraintStart_toStartOf="@id/statsOverviewItems_totalRunHeading"
+        app:layout_constraintBottom_toTopOf="@id/statsOverviewItems_totalRunHeading"
+        android:fontFamily="sans-serif-black"
+        android:text="6" />
+
+    <TextView
+        android:id="@+id/statsOverviewItems_totalRunHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Runs"
+        app:layout_constraintTop_toTopOf="@id/statsOverviewItems_highestSpeedHeading"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/statsOverviewItems_highestSpeedHeading" />
+
+    <TextView
+        android:id="@+id/statsOverviewItems_highestSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/statsOverviewItems_highestSpeedHeading"
+        app:layout_constraintStart_toStartOf="@id/statsOverviewItems_highestSpeedHeading"
+        app:layout_constraintBottom_toTopOf="@id/statsOverviewItems_highestSpeedHeading"
+        android:fontFamily="sans-serif-black"
+        android:text="6.96" />
+
+    <TextView
+        android:id="@+id/statsOverviewItems_highestSpeedHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Highest Speed"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statsOverviewItems_totalDistanceHeading"
+        app:layout_constraintStart_toStartOf="@id/statsOverviewItems_totalDistanceHeading"
+        app:layout_constraintEnd_toEndOf="@id/statsOverviewItems_totalDistanceHeading" />
+
+    <TextView
+        android:id="@+id/statsOverviewItems_totalCaloriesBurned"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/statsOverviewItems_totalCaloriesBurnedHeading"
+        app:layout_constraintStart_toStartOf="@id/statsOverviewItems_totalCaloriesBurnedHeading"
+        app:layout_constraintEnd_toEndOf="@id/statsOverviewItems_totalCaloriesBurnedHeading"
+        android:fontFamily="sans-serif-black"
+        android:text="69" />
+
+    <TextView
+        android:id="@+id/statsOverviewItems_totalCaloriesBurnedHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total kCal"
+        app:layout_constraintTop_toTopOf="@id/statsOverviewItems_highestSpeedHeading"
+        app:layout_constraintStart_toEndOf="@id/statsOverviewItems_highestSpeedHeading"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

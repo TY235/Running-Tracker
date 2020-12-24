@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.LoaderManager;
 import android.content.ContentResolver;
@@ -34,12 +35,9 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
     private static final int CURSOR_ID_SORT_BY_ID_ASC = 11;
     private static final int CURSOR_ID_SORT_BY_DISTANCE_DESC = 20;
     private static final int CURSOR_ID_SORT_BY_DISTANCE_ASC = 21;
-    private static final int CURSOR_ID_SORT_BY_SPEED_DESC = 30;
-    private static final int CURSOR_ID_SORT_BY_SPEED_ASC = 31;
-    private static final int CURSOR_ID_SORT_BY_TIME_TAKEN_DESC = 40;
-    private static final int CURSOR_ID_SORT_BY_TIME_TAKEN_ASC = 41;
-    private static final int CURSOR_ID_SORT_BY_CALORIES_BURNED_DESC = 50;
-    private static final int CURSOR_ID_SORT_BY_CALORIES_BURNED_ASC = 51;
+    private static final int CURSOR_ID_STATS_OVERVIEW = 3;
+
+
 
     private ArrayList<Integer> activityIDList = new ArrayList<Integer>();
     private ArrayList<Integer> dateList = new ArrayList<Integer>();
@@ -51,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
     private ArrayList<Double> caloriesBurnedList = new ArrayList<Double>();
     private ArrayList<String> weatherList = new ArrayList<String>();
     private ArrayList<String> satisfactionList = new ArrayList<String>();
-
+    private ArrayList<StatsOverviewModel> statsOverviewModelList = new ArrayList<StatsOverviewModel>();
 
     final ActivityDetailsFragment activityDetailsFragment = new ActivityDetailsFragment();
     final ResultFragment resultFragment = new ResultFragment();
@@ -116,7 +114,9 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
                         activeFragment = resultFragment;
                     }
                     else if (item.getItemId() == R.id.nav_activity){
-                        backToActivityList();
+                        Log.d("vp", "clicked nav bar");
+                        navigateToActivityList();
+
                     }
                     else if (item.getItemId() == R.id.nav_profile){
                         getUserDetailsNUpdateWelcomeText();
@@ -260,6 +260,10 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
             Log.d("check", "onCreateLoader: " + Objects.requireNonNull(args).getInt("id"));
             return new CursorLoader(MainActivity.this, RunningTrackerContract.ACTIVITIES_URI, null, RunningTrackerContract.ACTIVITIES_ID + "=?", new String[]{String.valueOf(Objects.requireNonNull(args).getInt("id"))}, null);
         }
+        else if (id == CURSOR_ID_STATS_OVERVIEW){
+            Log.d("vp", "start worker thread");
+            return new CursorLoader(MainActivity.this, RunningTrackerContract.STATS_OVERVIEW_URI, null, null, null, null);
+        }
         return null;
     }
 
@@ -320,7 +324,35 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
                     activityDetailsFragment.receiveDetails(bundle);
                 }
                 break;
+            case CURSOR_ID_STATS_OVERVIEW:
+                statsOverviewModelList.clear();
+                Log.d("vp", "load finished");
+                if (data!=null && data.getCount() > 0){
+                    Log.d("vp", "data count : " + data.getCount());
 
+                    while(data.moveToNext()){
+                        if (data.getInt(1)!=0){
+                            statsOverviewModelList.add(new StatsOverviewModel(data.getDouble(0), data.getInt(1), data.getDouble(2), data.getDouble(3)));
+                            Log.d("vp", "total runs : " + data.getInt(1));
+                        }
+                        else{
+                            Log.d("vp", "total runs else : " + data.getInt(1));
+                            statsOverviewModelList.add(new StatsOverviewModel(0, 0, 0, 0));
+                        }
+                    }
+                    data.close();
+                }
+                else {
+                    for (int i = 0; i < 3; i++){
+                        statsOverviewModelList.add(new StatsOverviewModel(0, 0, 0, 0));
+                    }
+                    Log.d("vp", "no result");
+                }
+
+                Log.d("vp", "out of if else");
+
+                activityFragment.retrieveStatsOverviewList(statsOverviewModelList);
+                break;
         }
     }
 
@@ -357,7 +389,7 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
 
     @Override
     public void onBackButtonClicked() {
-        backToActivityList();
+        navigateToActivityList();
     }
 
     @Override
@@ -365,16 +397,19 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
         boolean deleted = runningTrackerDBHandler.deleteActivity(id);
         if (deleted){
             Toast.makeText(getBaseContext(), "Activity Deleted!", Toast.LENGTH_LONG).show();
-            backToActivityList();
+            navigateToActivityList();
         }
         else{
             displayErrorToast();
         }
     }
 
-    private void backToActivityList(){
+    private void navigateToActivityList(){
+        Log.d("vp", "in function");
         resetActivityListData();
+        Log.d("vp", "before start thread");
         getLoaderManager().restartLoader(CURSOR_ID_SORT_BY_ID_DESC, null, MainActivity.this);
+        getLoaderManager().restartLoader(CURSOR_ID_STATS_OVERVIEW, null, MainActivity.this);
         fragmentManager.beginTransaction().hide(activeFragment).show(activityFragment).commit();
         activeFragment = activityFragment;
     }

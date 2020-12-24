@@ -4,18 +4,18 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.google.android.material.card.MaterialCardView;
+import java.util.ArrayList;
 
 public class ActivityFragment extends Fragment {
 
-    MaterialCardView statsOverview;
+    StatsOverviewSliderAdapter statsOverviewSliderAdapter;
+    ViewPager2 statsOverviewViewPager;
     RecyclerView activityList;
 
     @Override
@@ -33,7 +33,16 @@ public class ActivityFragment extends Fragment {
     }
 
     private void initialiseComponents(View view){
-        statsOverview = (MaterialCardView) view.findViewById(R.id.statsOverview);
+        statsOverviewViewPager = (ViewPager2) view.findViewById(R.id.statsOverview);
         activityList = (RecyclerView) view.findViewById(R.id.activityList);
     }
+//
+//    public void retrieveActivityListData(){
+//    }
+
+    public void retrieveStatsOverviewList(ArrayList<StatsOverviewModel> statsOverviewModelList){
+        statsOverviewSliderAdapter = new StatsOverviewSliderAdapter(statsOverviewModelList);
+        statsOverviewViewPager.setAdapter(statsOverviewSliderAdapter);
+    }
+
 }
