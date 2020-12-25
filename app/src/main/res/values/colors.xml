@@ -9,4 +9,6 @@
     <color name="medium_turquoise">#80DED9</color>
     <color name="maximum_blue_green">#32C3BB</color>
     <color name="light_sea_green">#2AA29C</color>
+    <color name="text_heading">#198383</color>
+    <color name="button_pressed">#269797</color>
 </resources>

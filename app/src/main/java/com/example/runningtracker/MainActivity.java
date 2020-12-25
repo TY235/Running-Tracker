@@ -5,9 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.LoaderManager;
 import android.content.ContentResolver;
@@ -26,7 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements RunFragment.RunFragmentListener, ResultFragment.ResultFragmentListener, ProfileFragment.ProfileFragmentListener, ActivityDetailsFragment.ActivityDetailsFragmentListener, LoaderManager.LoaderCallbacks<Cursor>, RecyclerViewClickInterface {
+public class MainActivity extends AppCompatActivity implements RunFragment.RunFragmentListener, ResultFragment.ResultFragmentListener, ProfileFragment.ProfileFragmentListener, ActivityFragment.ActivityFragmentListener, ActivityDetailsFragment.ActivityDetailsFragmentListener, LoaderManager.LoaderCallbacks<Cursor> {
 
 
     private static final int CURSOR_ID_USER_DETAILS = 0;
@@ -39,17 +36,9 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
 
 
 
-    private ArrayList<Integer> activityIDList = new ArrayList<Integer>();
-    private ArrayList<Integer> dateList = new ArrayList<Integer>();
-    private ArrayList<Integer> timeList = new ArrayList<Integer>();
-    private ArrayList<Integer> timeTakenList = new ArrayList<Integer>();
-    private ArrayList<Double> distanceList = new ArrayList<Double>();
-    private ArrayList<Double> paceList = new ArrayList<Double>();
-    private ArrayList<Double> speedList = new ArrayList<Double>();
-    private ArrayList<Double> caloriesBurnedList = new ArrayList<Double>();
-    private ArrayList<String> weatherList = new ArrayList<String>();
-    private ArrayList<String> satisfactionList = new ArrayList<String>();
+
     private ArrayList<StatsOverviewModel> statsOverviewModelList = new ArrayList<StatsOverviewModel>();
+    private ArrayList<ActivityModel> activityModelList = new ArrayList<ActivityModel>();
 
     final ActivityDetailsFragment activityDetailsFragment = new ActivityDetailsFragment();
     final ResultFragment resultFragment = new ResultFragment();
@@ -63,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
     Fragment activeFragment = runFragment;
     BottomNavigationView bottomNav;
     private boolean firstTimeLoad = true;
+    private boolean sortedByDateDesc;
+    private boolean sortedByDistanceDesc;
     private boolean inResultFragment = false;
     private RunningTrackerDBHandler runningTrackerDBHandler;
     private ContentResolver cr;
@@ -115,6 +106,8 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
                     }
                     else if (item.getItemId() == R.id.nav_activity){
                         Log.d("vp", "clicked nav bar");
+                        sortedByDateDesc = true;
+                        sortedByDistanceDesc = false;
                         navigateToActivityList();
 
                     }
@@ -228,24 +221,15 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
         }
     }
 
-    private void initialiseRecyclerView(){
-        RecyclerView activityList = findViewById(R.id.activityList);
-        ActivityListAdapter recipesListAdapter = new ActivityListAdapter(activityIDList, dateList, timeList, distanceList, timeTakenList, speedList, caloriesBurnedList, weatherList, satisfactionList, this);
-        activityList.setAdapter(recipesListAdapter);
-        activityList.setLayoutManager(new LinearLayoutManager(this));
-    }
+//    private void initialiseRecyclerView(){
+//        RecyclerView activityList = findViewById(R.id.activityList);
+//        ActivityListAdapter recipesListAdapter = new ActivityListAdapter(activityIDList, dateList, timeList, distanceList, timeTakenList, speedList, caloriesBurnedList, weatherList, satisfactionList, this);
+//        activityList.setAdapter(recipesListAdapter);
+//        activityList.setLayoutManager(new LinearLayoutManager(this));
+//    }
 
     private void resetActivityListData(){
-        activityIDList.clear();
-        dateList.clear();
-        timeList.clear();
-        distanceList.clear();
-        timeTakenList.clear();
-        speedList.clear();
-        paceList.clear();
-        caloriesBurnedList.clear();
-        weatherList.clear();
-        satisfactionList.clear();
+        activityModelList.clear();
     }
 
     @Override
@@ -255,6 +239,15 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
         }
         else if (id == CURSOR_ID_SORT_BY_ID_DESC){
             return new CursorLoader(MainActivity.this, RunningTrackerContract.ACTIVITIES_URI, null, null, null, RunningTrackerContract.ACTIVITIES_ID + " DESC");
+        }
+        else if (id == CURSOR_ID_SORT_BY_ID_ASC){
+            return new CursorLoader(MainActivity.this, RunningTrackerContract.ACTIVITIES_URI, null, null, null, RunningTrackerContract.ACTIVITIES_ID + " ASC");
+        }
+        else if (id == CURSOR_ID_SORT_BY_DISTANCE_DESC){
+            return new CursorLoader(MainActivity.this, RunningTrackerContract.ACTIVITIES_URI, null, null, null, RunningTrackerContract.ACTIVITIES_DISTANCE + " DESC");
+        }
+        else if (id == CURSOR_ID_SORT_BY_DISTANCE_ASC){
+            return new CursorLoader(MainActivity.this, RunningTrackerContract.ACTIVITIES_URI, null, null, null, RunningTrackerContract.ACTIVITIES_DISTANCE + " ASC");
         }
         else if (id == CURSOR_ID_ACTIVITY_DETAILS){
             Log.d("check", "onCreateLoader: " + Objects.requireNonNull(args).getInt("id"));
@@ -284,46 +277,31 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
                     Log.d("checkFirstTime", "onLoadFinished: " + userWeight);
                 }
                 break;
+
             case  CURSOR_ID_SORT_BY_ID_DESC:
+            case  CURSOR_ID_SORT_BY_ID_ASC:
+            case  CURSOR_ID_SORT_BY_DISTANCE_DESC:
+            case  CURSOR_ID_SORT_BY_DISTANCE_ASC:
                 if (data!=null && data.getCount() > 0){
                     while(data.moveToNext()){
-                        activityIDList.add(data.getInt(0));
-                        dateList.add(data.getInt(1));
-                        timeList.add(data.getInt(2));
-                        distanceList.add(data.getDouble(3));
-                        timeTakenList.add(data.getInt(4));
-                        speedList.add(data.getDouble(5));
-                        caloriesBurnedList.add(data.getDouble(7));
-                        weatherList.add(data.getString(8));
-                        satisfactionList.add(data.getString(9));
+                        activityModelList.add(new ActivityModel(data.getInt(0), data.getInt(1), data.getInt(2), data.getDouble(3), data.getInt(4), data.getDouble(5), data.getDouble(7), data.getString(8), data.getString(9)));
                     }
                     data.close();
                 }
-                initialiseRecyclerView();
-
+                activityFragment.retrieveActivityList(activityModelList);
                 break;
 
             case CURSOR_ID_ACTIVITY_DETAILS:
                 if (data!=null && data.getCount() > 0){
-                    Bundle bundle = new Bundle();
                     while(data.moveToNext()){
+                        ActivityDetailsModel activity = new ActivityDetailsModel(data.getInt(0), data.getInt(1), data.getInt(2), data.getDouble(3), data.getInt(4), data.getDouble(5), data.getDouble(6), data.getDouble(7), data.getString(8), data.getString(9), data.getString(10));
                         Log.d("Update", "onLoadFinished: id : " + data.getInt(0));
-                        bundle.putInt("id", data.getInt(0));
-                        bundle.putInt("date", data.getInt(1));
-                        bundle.putInt("time", data.getInt(2));
-                        bundle.putDouble("distance", data.getDouble(3));
-                        bundle.putInt("timeTaken", data.getInt(4));
-                        bundle.putDouble("speed", data.getDouble(5));
-                        bundle.putDouble("pace", data.getDouble(6));
-                        bundle.putDouble("caloriesBurned", data.getDouble(7));
-                        bundle.putString("weather", data.getString(8));
-                        bundle.putString("satisfaction", data.getString(9));
-                        bundle.putString("notes", data.getString(10));
+                        activityDetailsFragment.receiveDetails(activity);
                     }
                     data.close();
-                    activityDetailsFragment.receiveDetails(bundle);
                 }
                 break;
+
             case CURSOR_ID_STATS_OVERVIEW:
                 statsOverviewModelList.clear();
                 Log.d("vp", "load finished");
@@ -359,14 +337,6 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {}
 
-    @Override
-    public void onIDSent(int activityID) {
-        fragmentManager.beginTransaction().hide(activeFragment).show(activityDetailsFragment).commit();
-        activeFragment = activityDetailsFragment;
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", activityID);
-        getLoaderManager().restartLoader(CURSOR_ID_ACTIVITY_DETAILS, bundle, this);
-    }
 
 
     @Override
@@ -416,5 +386,44 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
 
     private void displayErrorToast(){
         Toast.makeText(getBaseContext(), "An error has occurred " + Utilities.getEmojiByUnicode(0x2639), Toast.LENGTH_LONG).show();
+    }
+
+
+    @Override
+    public void onIDSent(int activityID) {
+        fragmentManager.beginTransaction().hide(activeFragment).show(activityDetailsFragment).commit();
+        activeFragment = activityDetailsFragment;
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", activityID);
+        getLoaderManager().restartLoader(CURSOR_ID_ACTIVITY_DETAILS, bundle, this);
+    }
+
+    @Override
+    public void onSortByDateClicked() {
+        resetActivityListData();
+        if (sortedByDateDesc){
+            getLoaderManager().restartLoader(CURSOR_ID_SORT_BY_ID_ASC, null, this);
+            sortedByDateDesc = false;
+        }
+        else{
+            getLoaderManager().restartLoader(CURSOR_ID_SORT_BY_ID_DESC, null, this);
+            sortedByDateDesc = true;
+        }
+        sortedByDistanceDesc = false;
+
+    }
+
+    @Override
+    public void onSortByDistanceClicked() {
+        resetActivityListData();
+        if (sortedByDistanceDesc){
+            getLoaderManager().restartLoader(CURSOR_ID_SORT_BY_DISTANCE_ASC, null, this);
+            sortedByDistanceDesc = false;
+        }
+        else{
+            getLoaderManager().restartLoader(CURSOR_ID_SORT_BY_DISTANCE_DESC, null, this);
+            sortedByDistanceDesc = true;
+        }
+        sortedByDateDesc = false;
     }
 }

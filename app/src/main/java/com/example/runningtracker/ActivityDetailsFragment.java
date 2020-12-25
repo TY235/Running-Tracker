@@ -68,20 +68,20 @@ public class ActivityDetailsFragment extends Fragment implements AdapterView.OnI
         return view;
     }
 
-    public void receiveDetails(Bundle details){
+    public void receiveDetails(ActivityDetailsModel activity){
 
 
-        activityID = details.getInt("id");
-        date = details.getInt("date");
-        time = details.getInt("time");
-        totalTimeTakenInSeconds = details.getInt("timeTaken");
-        totalDistanceTravelledInKM = details.getDouble("distance");
-        paceInMinutesPerKM = details.getDouble("pace");
-        speedInMetersPerSecond = details.getDouble("speed");
-        caloriesBurned = details.getDouble("caloriesBurned");
-        weather = details.getString("weather");
-        satisfaction = details.getString("satisfaction");
-        notes = details.getString("notes");
+        activityID = activity.getActivityID();
+        date = activity.getDate();
+        time = activity.getTime();
+        totalTimeTakenInSeconds = activity.getTotalTimeTaken();
+        totalDistanceTravelledInKM = activity.getTotalDistance();
+        paceInMinutesPerKM = activity.getPace();
+        speedInMetersPerSecond = activity.getAvgSpeed();
+        caloriesBurned = activity.getTotalCaloriesBurned();
+        weather = activity.getWeather();
+        satisfaction = activity.getSatisfaction();
+        notes = activity.getNotes();
         Log.d("CHECK", "date: " + date);
         Log.d("CHECK", "time: " + time);
         Log.d("CHECK", "timetaken: " + totalTimeTakenInSeconds);

@@ -1,6 +1,7 @@
 package com.example.runningtracker;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import java.util.Locale;
 
 public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapter.ViewHolder>{
 
+    private ArrayList<ActivityModel> activityModelList;
+
     private ArrayList<Integer> activityIDList;
     private ArrayList<Integer> dateList;
     private ArrayList<Integer> timeList;
@@ -28,17 +31,18 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
     private ArrayList<String> satisfactionList;
     private RecyclerViewClickInterface recyclerViewClickInterface;
 
-    public ActivityListAdapter(ArrayList<Integer>activityIDList, ArrayList<Integer> dateList, ArrayList<Integer> timeList, ArrayList<Double> distanceList, ArrayList<Integer> timeTakenList, ArrayList<Double> speedList, ArrayList<Double> caloriesBurnedList, ArrayList<String> weatherList, ArrayList<String> satisfactionList, RecyclerViewClickInterface recyclerViewClickInterface){
-        this.activityIDList = activityIDList;
-        this.dateList = dateList;
-        this.timeList = timeList;
-        this.distanceList = distanceList;
-        this.timeTakenList = timeTakenList;
-        this.speedList = speedList;
-        this.caloriesBurnedList = caloriesBurnedList;
-        this.weatherList = weatherList;
-        this.satisfactionList = satisfactionList;
+    public ActivityListAdapter(ArrayList<ActivityModel>activityModelList, RecyclerViewClickInterface recyclerViewClickInterface){
+        this.activityModelList = activityModelList;
         this.recyclerViewClickInterface = recyclerViewClickInterface;
+//        this.activityIDList = activityIDList;
+//        this.dateList = dateList;
+//        this.timeList = timeList;
+//        this.distanceList = distanceList;
+//        this.timeTakenList = timeTakenList;
+//        this.speedList = speedList;
+//        this.caloriesBurnedList = caloriesBurnedList;
+//        this.weatherList = weatherList;
+//        this.satisfactionList = satisfactionList;
     }
 
     @NonNull
@@ -51,20 +55,21 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.idView.setText(String.valueOf(activityIDList.get(position)));
-        holder.dateView.setText(Utilities.formatDateToDDMMYYY(dateList.get(position)));
-        holder.timeView.setText(Utilities.formatTimeToHHMM(timeList.get(position)));
-        holder.distanceView.setText(String.format(Locale.ENGLISH, "%.2f km", distanceList.get(position)));
-        holder.timeTakenView.setText(Utilities.convertStoHMS(timeTakenList.get(position)));
-        holder.speedView.setText(String.format(Locale.ENGLISH, "%s m/s", speedList.get(position)));
-        holder.caloriesBurnedView.setText(String.format(Locale.ENGLISH, "%.1f kCal", caloriesBurnedList.get(position)));
-        holder.weatherView.setImageResource(Utilities.convertWeatherIcon(weatherList.get(position)));
-        holder.satisfactionView.setImageResource(Utilities.convertSatisfactionIcon(satisfactionList.get(position)));
+        Log.d("activitymodel", "id: " + activityModelList.get(position).getActivityID());
+        holder.idView.setText(String.valueOf(activityModelList.get(position).getActivityID()));
+        holder.dateView.setText(Utilities.formatDateToDDMMYYY(activityModelList.get(position).getDate()));
+        holder.timeView.setText(Utilities.formatTimeToHHMM(activityModelList.get(position).getTime()));
+        holder.distanceView.setText(String.format(Locale.ENGLISH, "%.2f km", activityModelList.get(position).getTotalDistance()));
+        holder.timeTakenView.setText(Utilities.convertStoHMS(activityModelList.get(position).getTotalTimeTaken()));
+        holder.speedView.setText(String.format(Locale.ENGLISH, "%s m/s", activityModelList.get(position).getAvgSpeed()));
+        holder.caloriesBurnedView.setText(String.format(Locale.ENGLISH, "%.1f kCal", activityModelList.get(position).getTotalCaloriesBurned()));
+        holder.weatherView.setImageResource(Utilities.convertWeatherIcon(activityModelList.get(position).getWeather()));
+        holder.satisfactionView.setImageResource(Utilities.convertSatisfactionIcon(activityModelList.get(position).getSatisfaction()));
     }
 
     @Override
     public int getItemCount() {
-        return activityIDList.size();
+        return activityModelList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -90,6 +95,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.d("activitymodel", "id: " + idView.getText().toString());
                     recyclerViewClickInterface.onIDSent(Integer.parseInt(idView.getText().toString()));
                 }
             });

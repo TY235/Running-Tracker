@@ -1,15 +1,17 @@
 package com.example.runningtracker;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +19,12 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
+
 import java.util.ArrayList;
 
-public class ActivityFragment extends Fragment {
+public class ActivityFragment extends Fragment implements View.OnClickListener, RecyclerViewClickInterface{
 
     StatsOverviewSliderAdapter statsOverviewSliderAdapter;
     ViewPager2 statsOverviewViewPager;
@@ -27,7 +32,18 @@ public class ActivityFragment extends Fragment {
     LinearLayout dotsLayout;
     TextView[] dots;
     ImageButton previousBtn, nextBtn;
+    FloatingActionMenu sortByButton;
+    FloatingActionButton sortByDateButton, sortByDistanceButton;
     int currentPage;
+
+    private ActivityFragment.ActivityFragmentListener listener;
+
+
+    public interface ActivityFragmentListener {
+        void onIDSent(int activityID);
+        void onSortByDateClicked();
+        void onSortByDistanceClicked();
+    }
 
 
     @Override
@@ -51,24 +67,22 @@ public class ActivityFragment extends Fragment {
         activityList = (RecyclerView) view.findViewById(R.id.activityList);
         previousBtn = (ImageButton) view.findViewById(R.id.previousButton);
         nextBtn = (ImageButton) view.findViewById(R.id.nextButton);
+        sortByButton = (FloatingActionMenu) view.findViewById(R.id.sortByFloatingButton);
+        sortByDateButton = (FloatingActionButton) view.findViewById(R.id.sortByDateFloatingButton);
+        sortByDistanceButton = (FloatingActionButton) view.findViewById(R.id.sortByDistanceFloatingButton);
         addDotsIndicator();
-        previousBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                statsOverviewViewPager.setCurrentItem(--currentPage);
-            }
-        });
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                statsOverviewViewPager.setCurrentItem(++currentPage);
-            }
-        });
+        sortByDistanceButton.setOnClickListener(this);
+        sortByDateButton.setOnClickListener(this);
+        previousBtn.setOnClickListener(this);
+        nextBtn.setOnClickListener(this);
         statsOverviewViewPager.registerOnPageChangeCallback(callback);
     }
 //
 //    public void retrieveActivityListData(){
 //    }
+
+
+
 
     public void retrieveStatsOverviewList(ArrayList<StatsOverviewModel> statsOverviewModelList){
         statsOverviewSliderAdapter = new StatsOverviewSliderAdapter(statsOverviewModelList);
@@ -84,7 +98,7 @@ public class ActivityFragment extends Fragment {
             dots[i].setTextSize(28);
             dotsLayout.addView(dots[i]);
         }
-        dots[0].setTextColor(ContextCompat.getColor(getContext(), R.color.maximum_blue_green));
+        dots[0].setTextColor(ContextCompat.getColor(getContext(), R.color.black));
     }
 
     ViewPager2.OnPageChangeCallback callback = new ViewPager2.OnPageChangeCallback() {
@@ -103,7 +117,7 @@ public class ActivityFragment extends Fragment {
 
             for (int i = 0; i < dots.length; i++) {
                 if (i == position){
-                    dots[i].setTextColor(ContextCompat.getColor(getContext(), R.color.maximum_blue_green));
+                    dots[i].setTextColor(ContextCompat.getColor(getContext(), R.color.black));
                 }
                 else{
                     dots[i].setTextColor(ContextCompat.getColor(getContext(), android.R.color.tab_indicator_text));
@@ -132,6 +146,53 @@ public class ActivityFragment extends Fragment {
         }
     };
 
+    public void retrieveActivityList(ArrayList<ActivityModel> activityModelList){
+        ActivityListAdapter recipesListAdapter = new ActivityListAdapter(activityModelList, this);
+        activityList.setAdapter(recipesListAdapter);
+        activityList.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
 
 
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.sortByDateFloatingButton){
+            listener.onSortByDateClicked();
+            sortByButton.close(true);
+        }
+        else if (id == R.id.sortByDistanceFloatingButton){
+            listener.onSortByDistanceClicked();
+            sortByButton.close(true);
+
+        }
+        else if (id == R.id.previousButton){
+            statsOverviewViewPager.setCurrentItem(--currentPage);
+        }
+        else if (id == R.id.nextButton){
+            statsOverviewViewPager.setCurrentItem(++currentPage);
+        }
+    }
+
+    @Override
+    public void onIDSent(int activityID) {
+        listener.onIDSent(activityID);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        // Check if MainActivity implemented ActivityFragmentListener interface
+        if (context instanceof ActivityFragment.ActivityFragmentListener){
+            listener = (ActivityFragment.ActivityFragmentListener) context;
+        }
+        else{
+            throw new RuntimeException(context.toString() + " must implement ActivityFragmentListener.");
+        }
+    }
+
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//        listener = null;
+//    }
 }

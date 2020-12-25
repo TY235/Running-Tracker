@@ -60,7 +60,7 @@ public class RunningTrackerContentProvider extends ContentProvider {
             String dateString = String.format(Locale.ENGLISH, "%d%02d%02d", currentZDT.getYear(), currentZDT.get(ChronoField.MONTH_OF_YEAR), currentZDT.getDayOfMonth());
             String monthStart = dateString.substring(0, 6) + "00";
             String monthEnd = dateString.substring(0, 6) + "32";
-            String generalSelectQuery = "SELECT SUM("+ RunningTrackerContract.ACTIVITIES_DISTANCE +"), COUNT(" + RunningTrackerContract.ACTIVITIES_ID + ") as runs, MIN(" + RunningTrackerContract.ACTIVITIES_SPEED + "), SUM(" + RunningTrackerContract.ACTIVITIES_CALORIES_BURNED + ") from " + RunningTrackerContract.TABLE_ACTIVITIES;
+            String generalSelectQuery = "SELECT SUM("+ RunningTrackerContract.ACTIVITIES_DISTANCE +"), COUNT(" + RunningTrackerContract.ACTIVITIES_ID + ") as runs, MAX(" + RunningTrackerContract.ACTIVITIES_SPEED + "), SUM(" + RunningTrackerContract.ACTIVITIES_CALORIES_BURNED + ") from " + RunningTrackerContract.TABLE_ACTIVITIES;
             String query =  generalSelectQuery +
                             " UNION ALL " +
                             generalSelectQuery + " WHERE " + RunningTrackerContract.ACTIVITIES_DATE + ">" + monthStart + " AND " + RunningTrackerContract.ACTIVITIES_DATE + "<" + monthEnd +
