@@ -7,13 +7,48 @@
     tools:context=".ActivityFragment">
 
     <androidx.viewpager2.widget.ViewPager2
+        android:background="@android:color/transparent"
         android:id="@+id/statsOverview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintHeight_percent="0.32"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+
+
+    </androidx.viewpager2.widget.ViewPager2>
+
+    <ImageButton
+        android:id="@+id/previousButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="-1"
+        app:layout_constraintStart_toStartOf="@id/statsOverview"
+        app:layout_constraintTop_toTopOf="@id/statsOverview"
+        app:layout_constraintBottom_toBottomOf="@id/statsOverview"
+        android:elevation="3dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_stats_overview_next" />
+
+    <ImageButton
+        android:id="@+id/nextButton"
+        app:layout_constraintEnd_toEndOf="@id/statsOverview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="@id/statsOverview"
+        app:layout_constraintBottom_toBottomOf="@id/statsOverview"
+        android:elevation="3dp"
+        android:src="@drawable/ic_stats_overview_next" />
+    <LinearLayout
+        android:id="@+id/dotsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/statsOverview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/horizontalDividerLine" />
 
     <View
         android:id="@+id/horizontalDividerLine"
