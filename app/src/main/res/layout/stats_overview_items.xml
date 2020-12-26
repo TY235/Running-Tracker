@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:layout_margin="9dp"
-        android:text="All Time"
+        android:text="@string/stats_overview_heading"
         android:textStyle="bold"
         android:textSize="16sp"
         android:textColor="@android:color/black"
@@ -29,14 +29,14 @@
         app:layout_constraintStart_toStartOf="@id/statsOverviewItems_totalDistanceHeading"
         app:layout_constraintEnd_toEndOf="@id/statsOverviewItems_totalDistanceHeading"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="69.69" />
+        android:text="@string/example_distance" />
 
     <TextView
         android:id="@+id/statsOverviewItems_totalDistanceHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        android:text="Total Kilometers"
+        android:text="@string/total_distance_heading"
         app:layout_constraintTop_toBottomOf="@id/statsOverviewItems_totalDistance"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -50,13 +50,13 @@
         app:layout_constraintStart_toStartOf="@id/statsOverviewItems_totalRunHeading"
         app:layout_constraintBottom_toTopOf="@id/statsOverviewItems_totalRunHeading"
         android:fontFamily="sans-serif-black"
-        android:text="6" />
+        android:text="@string/example_no_of_runs" />
 
     <TextView
         android:id="@+id/statsOverviewItems_totalRunHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total Runs"
+        android:text="@string/total_runs_heading"
         android:textColor="@android:color/black"
         app:layout_constraintTop_toTopOf="@id/statsOverviewItems_highestSpeedHeading"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,14 +71,14 @@
         app:layout_constraintStart_toStartOf="@id/statsOverviewItems_highestSpeedHeading"
         app:layout_constraintBottom_toTopOf="@id/statsOverviewItems_highestSpeedHeading"
         android:fontFamily="sans-serif-black"
-        android:text="6.96" />
+        android:text="@string/example_speed" />
 
     <TextView
         android:id="@+id/statsOverviewItems_highestSpeedHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:text="Highest Speed"
+        android:text="@string/highest_speed_heading"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/statsOverviewItems_totalDistanceHeading"
@@ -94,13 +94,13 @@
         app:layout_constraintStart_toStartOf="@id/statsOverviewItems_totalCaloriesBurnedHeading"
         app:layout_constraintEnd_toEndOf="@id/statsOverviewItems_totalCaloriesBurnedHeading"
         android:fontFamily="sans-serif-black"
-        android:text="69" />
+        android:text="@string/example_calories_burned" />
 
     <TextView
         android:id="@+id/statsOverviewItems_totalCaloriesBurnedHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total kCal"
+        android:text="@string/total_calories_unit_heading"
         android:textColor="@android:color/black"
         app:layout_constraintTop_toTopOf="@id/statsOverviewItems_highestSpeedHeading"
         app:layout_constraintStart_toEndOf="@id/statsOverviewItems_highestSpeedHeading"
