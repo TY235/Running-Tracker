@@ -34,11 +34,8 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
     private static final int CURSOR_ID_SORT_BY_DISTANCE_ASC = 21;
     private static final int CURSOR_ID_STATS_OVERVIEW = 3;
 
-
-
-
-    private ArrayList<StatsOverviewModel> statsOverviewModelList = new ArrayList<StatsOverviewModel>();
-    private ArrayList<ActivityModel> activityModelList = new ArrayList<ActivityModel>();
+    private final ArrayList<StatsOverviewModel> statsOverviewModelList = new ArrayList<>();
+    private final ArrayList<ActivityModel> activityModelList = new ArrayList<>();
 
     final ActivityDetailsFragment activityDetailsFragment = new ActivityDetailsFragment();
     final ResultFragment resultFragment = new ResultFragment();
@@ -67,15 +64,10 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
         setContentView(R.layout.activity_main);
 
         cr = getContentResolver();
-        runningTrackerDBHandler = new RunningTrackerDBHandler(this, null, null, 1);
+        runningTrackerDBHandler = new RunningTrackerDBHandler(this, null);
 
         bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-//
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_frame,
-//                    new RunFragment()).commit();
-//        }
 
         fragmentManager.beginTransaction().add(R.id.fragment_frame, runFragment, "1").commit();
         fragmentManager.beginTransaction().add(R.id.fragment_frame, activityFragment, "2").hide(activityFragment).commit();
@@ -91,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
         getUserDetailsNUpdateWelcomeText();
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+    private final BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -135,15 +127,6 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
             Log.d("checkFirstTime", "getUserDetailsNUpdateWelcomeText: reload");
             getLoaderManager().restartLoader(CURSOR_ID_USER_DETAILS, null, this);
         }
-//        Cursor cursor = cr.query(RunningTrackerContract.USER_DETAILS_URI, null, null, null, null);
-//        if (cursor!=null && cursor.getCount() > 0){
-//            while(cursor.moveToNext()){
-//                userName = cursor.getString(1);
-//                userHeight = cursor.getDouble(2);
-//                userWeight = cursor.getDouble(3);
-//            }
-//            cursor.close();
-//        }
     }
 
     @Override
@@ -221,13 +204,6 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
         }
     }
 
-//    private void initialiseRecyclerView(){
-//        RecyclerView activityList = findViewById(R.id.activityList);
-//        ActivityListAdapter recipesListAdapter = new ActivityListAdapter(activityIDList, dateList, timeList, distanceList, timeTakenList, speedList, caloriesBurnedList, weatherList, satisfactionList, this);
-//        activityList.setAdapter(recipesListAdapter);
-//        activityList.setLayoutManager(new LinearLayoutManager(this));
-//    }
-
     private void resetActivityListData(){
         activityModelList.clear();
     }
@@ -250,11 +226,9 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
             return new CursorLoader(MainActivity.this, RunningTrackerContract.ACTIVITIES_URI, null, null, null, RunningTrackerContract.ACTIVITIES_DISTANCE + " ASC");
         }
         else if (id == CURSOR_ID_ACTIVITY_DETAILS){
-            Log.d("check", "onCreateLoader: " + Objects.requireNonNull(args).getInt("id"));
             return new CursorLoader(MainActivity.this, RunningTrackerContract.ACTIVITIES_URI, null, RunningTrackerContract.ACTIVITIES_ID + "=?", new String[]{String.valueOf(Objects.requireNonNull(args).getInt("id"))}, null);
         }
         else if (id == CURSOR_ID_STATS_OVERVIEW){
-            Log.d("vp", "start worker thread");
             return new CursorLoader(MainActivity.this, RunningTrackerContract.STATS_OVERVIEW_URI, null, null, null, null);
         }
         return null;
@@ -275,30 +249,6 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
                     Log.d("checkFirstTime", "onLoadFinished: " + userName);
                     Log.d("checkFirstTime", "onLoadFinished: " + userHeight);
                     Log.d("checkFirstTime", "onLoadFinished: " + userWeight);
-                }
-                break;
-
-            case  CURSOR_ID_SORT_BY_ID_DESC:
-            case  CURSOR_ID_SORT_BY_ID_ASC:
-            case  CURSOR_ID_SORT_BY_DISTANCE_DESC:
-            case  CURSOR_ID_SORT_BY_DISTANCE_ASC:
-                if (data!=null && data.getCount() > 0){
-                    while(data.moveToNext()){
-                        activityModelList.add(new ActivityModel(data.getInt(0), data.getInt(1), data.getInt(2), data.getDouble(3), data.getInt(4), data.getDouble(5), data.getDouble(7), data.getString(8), data.getString(9)));
-                    }
-                    data.close();
-                }
-                activityFragment.retrieveActivityList(activityModelList);
-                break;
-
-            case CURSOR_ID_ACTIVITY_DETAILS:
-                if (data!=null && data.getCount() > 0){
-                    while(data.moveToNext()){
-                        ActivityDetailsModel activity = new ActivityDetailsModel(data.getInt(0), data.getInt(1), data.getInt(2), data.getDouble(3), data.getInt(4), data.getDouble(5), data.getDouble(6), data.getDouble(7), data.getString(8), data.getString(9), data.getString(10));
-                        Log.d("Update", "onLoadFinished: id : " + data.getInt(0));
-                        activityDetailsFragment.receiveDetails(activity);
-                    }
-                    data.close();
                 }
                 break;
 
@@ -324,12 +274,34 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
                     for (int i = 0; i < 3; i++){
                         statsOverviewModelList.add(new StatsOverviewModel(0, 0, 0, 0));
                     }
-                    Log.d("vp", "no result");
                 }
 
-                Log.d("vp", "out of if else");
 
                 activityFragment.retrieveStatsOverviewList(statsOverviewModelList);
+                break;
+
+            case  CURSOR_ID_SORT_BY_ID_DESC:
+            case  CURSOR_ID_SORT_BY_ID_ASC:
+            case  CURSOR_ID_SORT_BY_DISTANCE_DESC:
+            case  CURSOR_ID_SORT_BY_DISTANCE_ASC:
+                if (data!=null && data.getCount() > 0){
+                    while(data.moveToNext()){
+                        activityModelList.add(new ActivityModel(data.getInt(0), data.getInt(1), data.getInt(2), data.getDouble(3), data.getInt(4), data.getDouble(5), data.getDouble(7), data.getString(8), data.getString(9)));
+                    }
+                    data.close();
+                }
+                activityFragment.retrieveActivityList(activityModelList);
+                break;
+
+            case CURSOR_ID_ACTIVITY_DETAILS:
+                if (data!=null && data.getCount() > 0){
+                    while(data.moveToNext()){
+                        ActivityDetailsModel activity = new ActivityDetailsModel(data.getInt(0), data.getInt(1), data.getInt(2), data.getDouble(3), data.getInt(4), data.getDouble(5), data.getDouble(6), data.getDouble(7), data.getString(8), data.getString(9), data.getString(10));
+                        Log.d("Update", "onLoadFinished: id : " + data.getInt(0));
+                        activityDetailsFragment.receiveDetails(activity);
+                    }
+                    data.close();
+                }
                 break;
         }
     }
@@ -358,12 +330,12 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
     }
 
     @Override
-    public void onBackButtonClicked() {
+    public void onActivityDetailsBackButtonClicked() {
         navigateToActivityList();
     }
 
     @Override
-    public void onDeleteDetails(int id) {
+    public void onActivityDetailsDeleteButtonClicked(int id) {
         boolean deleted = runningTrackerDBHandler.deleteActivity(id);
         if (deleted){
             Toast.makeText(getBaseContext(), "Activity Deleted!", Toast.LENGTH_LONG).show();
@@ -390,7 +362,7 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
 
 
     @Override
-    public void onIDSent(int activityID) {
+    public void onActivityClicked(int activityID) {
         fragmentManager.beginTransaction().hide(activeFragment).show(activityDetailsFragment).commit();
         activeFragment = activityDetailsFragment;
         Bundle bundle = new Bundle();

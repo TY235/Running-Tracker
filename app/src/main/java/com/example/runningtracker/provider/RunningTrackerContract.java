@@ -5,7 +5,6 @@ import android.net.Uri;
 public class RunningTrackerContract {
 
     public static final String AUTHORITY = "com.example.runningtracker.provider.RunningTrackerContentProvider";
-    public static final Uri AUTHORITY_URI = Uri.parse("content://" + AUTHORITY);
 
 
     // Table names (Added by myself for convenience purposes. It is not from the original code given.)

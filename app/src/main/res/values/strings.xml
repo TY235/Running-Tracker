@@ -10,4 +10,31 @@
     <string name="stop_btn_text">STOP</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="stats_overview_btn_description">Button to move to previous stats overview.</string>
+    <string name="activity_details_back_btn_description">Button to move back to activity fragment.</string>
+    <string name="example_date">20/02/2020</string>
+    <string name="example_time">20:20</string>
+    <string name="activity_details_delete_btn_description">Button to delete the current activity.</string>
+    <string name="example_distance">69.69</string>
+    <string name="distance_heading">Kilometers</string>
+    <string name="example_pace">6.96</string>
+    <string name="pace_heading">Pace</string>
+    <string name="example_speed">9.69</string>
+    <string name="speed_heading">Speed</string>
+    <string name="example_time_taken">9:33</string>
+    <string name="time_taken_heading">Time</string>
+    <string name="example_calories_burned">69</string>
+    <string name="calories_burned_heading">Calories</string>
+    <string name="weather_heading">Weather</string>
+    <string name="satisfaction_heading">Satisfaction</string>
+    <string name="notes_heading">Notes:</string>
+    <string name="update_btn_text">UPDATE</string>
+    <string name="example_activity_id">3</string>
+    <string name="weather_icon_description">Icon to represent the weather of that activity.</string>
+    <string name="satisfaction_icon_description">Icon to represent the satisfaction of that activity.</string>
+    <string name="example_date_with_hyphen">2020-02-20</string>
+    <string name="example_distance_with_heading">69 km</string>
+    <string name="example_speed_with_heading">69 m/s</string>
+    <string name="example_calories_burned_with_heading">6969 kCal</string>
+    <string name="example_time_taken_with_heading">9:33</string>
 </resources>

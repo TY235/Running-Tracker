@@ -41,7 +41,6 @@ public class ResultFragment extends Fragment implements AdapterView.OnItemSelect
     private MapView mapView;
     private Spinner weatherSpinner, satisfactionSpinner;
     private TextView timeTakenView, distanceView, paceView, speedView, caloriesBurnedView;
-    private MaterialButton saveBtn, discardBtn;
 
     private ArrayList<ArrayList<LatLng>> polyline;
     private double totalDistanceTravelledInKM;
@@ -73,27 +72,27 @@ public class ResultFragment extends Fragment implements AdapterView.OnItemSelect
     }
 
     private void initialiseLayoutComponents(View view){
-        timeTakenView = (TextView) view.findViewById(R.id.resultTime);
-        distanceView = (TextView) view.findViewById(R.id.resultDistance);
-        paceView = (TextView) view.findViewById(R.id.resultPace);
-        speedView = (TextView) view.findViewById(R.id.resultSpeed);
-        caloriesBurnedView = (TextView) view.findViewById(R.id.resultKcal);
-        weatherSpinner = (Spinner) view.findViewById(R.id.weather);
-        satisfactionSpinner = (Spinner) view.findViewById(R.id.satisfaction);
-        mapView = (MapView) view.findViewById(R.id.resultMapView);
+        timeTakenView = view.findViewById(R.id.resultTime);
+        distanceView = view.findViewById(R.id.resultDistance);
+        paceView = view.findViewById(R.id.resultPace);
+        speedView = view.findViewById(R.id.resultSpeed);
+        caloriesBurnedView = view.findViewById(R.id.resultKcal);
+        weatherSpinner = view.findViewById(R.id.weather);
+        satisfactionSpinner = view.findViewById(R.id.satisfaction);
+        mapView = view.findViewById(R.id.resultMapView);
         mapView.onCreate(null);
         mapView.getMapAsync(this);
-        saveBtn = (MaterialButton) view.findViewById(R.id.saveButton);
+        MaterialButton saveBtn = view.findViewById(R.id.saveButton);
         saveBtn.setOnClickListener(this);
-        discardBtn = (MaterialButton) view.findViewById(R.id.discardButton);
+        MaterialButton discardBtn = view.findViewById(R.id.discardButton);
         discardBtn.setOnClickListener(this);
 
-        ArrayAdapter<String> weatherAdapter = new ArrayAdapter<String>(getActivity(), R.layout.style_dropdown_item, weatherItems);
+        ArrayAdapter<String> weatherAdapter = new ArrayAdapter<>(getActivity(), R.layout.style_dropdown_item, weatherItems);
         weatherAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         weatherSpinner.setAdapter(weatherAdapter);
         weatherSpinner.setOnItemSelectedListener(this);
 
-        ArrayAdapter<String> satisfactionAdapter = new ArrayAdapter<String>(getActivity(), R.layout.style_dropdown_item, satisfactionItems);
+        ArrayAdapter<String> satisfactionAdapter = new ArrayAdapter<>(getActivity(), R.layout.style_dropdown_item, satisfactionItems);
         satisfactionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         satisfactionSpinner.setAdapter(satisfactionAdapter);
         satisfactionSpinner.setOnItemSelectedListener(this);
@@ -272,8 +271,8 @@ public class ResultFragment extends Fragment implements AdapterView.OnItemSelect
         );
 
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        for (ArrayList<LatLng> plyl : polyline){
-            for (LatLng latLng : plyl) {
+        for (ArrayList<LatLng> line : polyline){
+            for (LatLng latLng : line) {
                 builder.include(latLng);
             }
         }

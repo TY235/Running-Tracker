@@ -40,7 +40,7 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
 
 
     public interface ActivityFragmentListener {
-        void onIDSent(int activityID);
+        void onActivityClicked(int activityID);
         void onSortByDateClicked();
         void onSortByDistanceClicked();
     }
@@ -62,14 +62,14 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
     }
 
     private void initialiseComponents(View view){
-        statsOverviewViewPager = (ViewPager2) view.findViewById(R.id.statsOverview);
-        dotsLayout = (LinearLayout) view.findViewById(R.id.dotsLayout);
-        activityList = (RecyclerView) view.findViewById(R.id.activityList);
-        previousBtn = (ImageButton) view.findViewById(R.id.previousButton);
-        nextBtn = (ImageButton) view.findViewById(R.id.nextButton);
-        sortByButton = (FloatingActionMenu) view.findViewById(R.id.sortByFloatingButton);
-        sortByDateButton = (FloatingActionButton) view.findViewById(R.id.sortByDateFloatingButton);
-        sortByDistanceButton = (FloatingActionButton) view.findViewById(R.id.sortByDistanceFloatingButton);
+        statsOverviewViewPager = view.findViewById(R.id.statsOverview);
+        dotsLayout = view.findViewById(R.id.dotsLayout);
+        activityList = view.findViewById(R.id.activityList);
+        previousBtn = view.findViewById(R.id.previousButton);
+        nextBtn = view.findViewById(R.id.nextButton);
+        sortByButton = view.findViewById(R.id.sortByFloatingButton);
+        sortByDateButton = view.findViewById(R.id.sortByDateFloatingButton);
+        sortByDistanceButton = view.findViewById(R.id.sortByDistanceFloatingButton);
         addDotsIndicator();
         sortByDistanceButton.setOnClickListener(this);
         sortByDateButton.setOnClickListener(this);
@@ -77,10 +77,6 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
         nextBtn.setOnClickListener(this);
         statsOverviewViewPager.registerOnPageChangeCallback(callback);
     }
-//
-//    public void retrieveActivityListData(){
-//    }
-
 
 
 
@@ -174,8 +170,8 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
     }
 
     @Override
-    public void onIDSent(int activityID) {
-        listener.onIDSent(activityID);
+    public void onActivityClicked(int activityID) {
+        listener.onActivityClicked(activityID);
     }
 
     @Override

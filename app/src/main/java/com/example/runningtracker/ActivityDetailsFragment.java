@@ -1,7 +1,6 @@
 package com.example.runningtracker;
 
 import android.content.Context;
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,10 +17,8 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.button.MaterialButton;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 
@@ -40,18 +37,14 @@ public class ActivityDetailsFragment extends Fragment implements AdapterView.OnI
     private TextView dateView, timeView, distanceView, timeTakenView, speedView, caloriesBurnedView, paceView;
     private Spinner weatherSpinner, satisfactionSpinner;
     private EditText notesView;
-    private MaterialButton uploadBtn;
-    private ImageButton backBtn, deleteBtn;
 
     public interface ActivityDetailsFragmentListener {
         void onDetailsUpdate (int id, String weather, String satisfaction, String notes);
-        void onBackButtonClicked();
-        void onDeleteDetails(int id);
+        void onActivityDetailsBackButtonClicked();
+        void onActivityDetailsDeleteButtonClicked(int id);
     }
 
-    public ActivityDetailsFragment() {
-        // Required empty public constructor
-    }
+    public ActivityDetailsFragment() {}
 
 
     @Override
@@ -84,7 +77,7 @@ public class ActivityDetailsFragment extends Fragment implements AdapterView.OnI
         notes = activity.getNotes();
         Log.d("CHECK", "date: " + date);
         Log.d("CHECK", "time: " + time);
-        Log.d("CHECK", "timetaken: " + totalTimeTakenInSeconds);
+        Log.d("CHECK", "time taken: " + totalTimeTakenInSeconds);
         Log.d("CHECK", "pace: " + paceInMinutesPerKM);
         Log.d("CHECK", "speed: " + speedInMetersPerSecond);
         Log.d("CHECK", "calories: " + caloriesBurned);
@@ -107,26 +100,26 @@ public class ActivityDetailsFragment extends Fragment implements AdapterView.OnI
     }
 
     private void initialiseComponents(View view){
-        dateView = (TextView) view.findViewById(R.id.activityDetails_date);
-        timeView = (TextView) view.findViewById(R.id.activityDetails_time);
-        distanceView = (TextView) view.findViewById(R.id.activityDetails_distance);
-        timeTakenView = (TextView) view.findViewById(R.id.activityDetails_timeTaken);
-        speedView = (TextView) view.findViewById(R.id.activityDetails_speed);
-        paceView = (TextView) view.findViewById(R.id.activityDetails_pace);
-        caloriesBurnedView = (TextView) view.findViewById(R.id.activityDetails_caloriesBurned);
-        weatherSpinner = (Spinner) view.findViewById(R.id.activityDetails_weather);
-        satisfactionSpinner = (Spinner) view.findViewById(R.id.activityDetails_satisfaction);
-        notesView = (EditText) view.findViewById(R.id.activityDetails_notes);
-        uploadBtn = (MaterialButton) view.findViewById(R.id.activityDetails_updateButton);
-        backBtn = (ImageButton) view.findViewById(R.id.activityDetails_backButton);
-        deleteBtn = (ImageButton) view.findViewById(R.id.activityDetails_deleteButton);
+        dateView = view.findViewById(R.id.activityDetails_date);
+        timeView = view.findViewById(R.id.activityDetails_time);
+        distanceView = view.findViewById(R.id.activityDetails_distance);
+        timeTakenView = view.findViewById(R.id.activityDetails_timeTaken);
+        speedView = view.findViewById(R.id.activityDetails_speed);
+        paceView = view.findViewById(R.id.activityDetails_pace);
+        caloriesBurnedView = view.findViewById(R.id.activityDetails_caloriesBurned);
+        weatherSpinner = view.findViewById(R.id.activityDetails_weather);
+        satisfactionSpinner = view.findViewById(R.id.activityDetails_satisfaction);
+        notesView = view.findViewById(R.id.activityDetails_notes);
+        MaterialButton uploadBtn = view.findViewById(R.id.activityDetails_updateButton);
+        ImageButton backBtn = view.findViewById(R.id.activityDetails_backButton);
+        ImageButton deleteBtn = view.findViewById(R.id.activityDetails_deleteButton);
 
-        ArrayAdapter<String> weatherAdapter = new ArrayAdapter<String>(getActivity(), R.layout.style_dropdown_item, weatherItems);
+        ArrayAdapter<String> weatherAdapter = new ArrayAdapter<>(getActivity(), R.layout.style_dropdown_item, weatherItems);
         weatherAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         weatherSpinner.setAdapter(weatherAdapter);
         weatherSpinner.setOnItemSelectedListener(this);
 
-        ArrayAdapter<String> satisfactionAdapter = new ArrayAdapter<String>(getActivity(), R.layout.style_dropdown_item, satisfactionItems);
+        ArrayAdapter<String> satisfactionAdapter = new ArrayAdapter<>(getActivity(), R.layout.style_dropdown_item, satisfactionItems);
         satisfactionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         satisfactionSpinner.setAdapter(satisfactionAdapter);
         satisfactionSpinner.setOnItemSelectedListener(this);
@@ -240,10 +233,10 @@ public class ActivityDetailsFragment extends Fragment implements AdapterView.OnI
             listener.onDetailsUpdate(activityID, weather, satisfaction, notesView.getText().toString());
         }
         else if (id == R.id.activityDetails_backButton){
-            listener.onBackButtonClicked();
+            listener.onActivityDetailsBackButtonClicked();
         }
         else if (id == R.id.activityDetails_deleteButton){
-            listener.onDeleteDetails(activityID);
+            listener.onActivityDetailsDeleteButtonClicked(activityID);
         }
     }
 }

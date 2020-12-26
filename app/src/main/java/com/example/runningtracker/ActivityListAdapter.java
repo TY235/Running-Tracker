@@ -1,6 +1,5 @@
 package com.example.runningtracker;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,31 +17,12 @@ import java.util.Locale;
 
 public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapter.ViewHolder>{
 
-    private ArrayList<ActivityModel> activityModelList;
-
-    private ArrayList<Integer> activityIDList;
-    private ArrayList<Integer> dateList;
-    private ArrayList<Integer> timeList;
-    private ArrayList<Integer> timeTakenList;
-    private ArrayList<Double> distanceList;
-    private ArrayList<Double> speedList;
-    private ArrayList<Double> caloriesBurnedList;
-    private ArrayList<String> weatherList;
-    private ArrayList<String> satisfactionList;
-    private RecyclerViewClickInterface recyclerViewClickInterface;
+    private final ArrayList<ActivityModel> activityModelList;
+    private final RecyclerViewClickInterface recyclerViewClickInterface;
 
     public ActivityListAdapter(ArrayList<ActivityModel>activityModelList, RecyclerViewClickInterface recyclerViewClickInterface){
         this.activityModelList = activityModelList;
         this.recyclerViewClickInterface = recyclerViewClickInterface;
-//        this.activityIDList = activityIDList;
-//        this.dateList = dateList;
-//        this.timeList = timeList;
-//        this.distanceList = distanceList;
-//        this.timeTakenList = timeTakenList;
-//        this.speedList = speedList;
-//        this.caloriesBurnedList = caloriesBurnedList;
-//        this.weatherList = weatherList;
-//        this.satisfactionList = satisfactionList;
     }
 
     @NonNull
@@ -55,7 +35,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Log.d("activitymodel", "id: " + activityModelList.get(position).getActivityID());
+        Log.d("activity model", "id: " + activityModelList.get(position).getActivityID());
         holder.idView.setText(String.valueOf(activityModelList.get(position).getActivityID()));
         holder.dateView.setText(Utilities.formatDateToDDMMYYY(activityModelList.get(position).getDate()));
         holder.timeView.setText(Utilities.formatTimeToHHMM(activityModelList.get(position).getTime()));
@@ -92,12 +72,9 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
             satisfactionView = itemView.findViewById(R.id.satisfactionIcon);
             parentLayout = itemView.findViewById(R.id.activityItems);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d("activitymodel", "id: " + idView.getText().toString());
-                    recyclerViewClickInterface.onIDSent(Integer.parseInt(idView.getText().toString()));
-                }
+            itemView.setOnClickListener(v -> {
+                Log.d("activity model", "id: " + idView.getText().toString());
+                recyclerViewClickInterface.onActivityClicked(Integer.parseInt(idView.getText().toString()));
             });
         }
     }

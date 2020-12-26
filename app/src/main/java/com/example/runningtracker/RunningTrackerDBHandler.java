@@ -12,7 +12,7 @@ public class RunningTrackerDBHandler extends SQLiteOpenHelper{
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "runningTracker.db";
 
-    public RunningTrackerDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public RunningTrackerDBHandler(Context context, SQLiteDatabase.CursorFactory factory) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
 
@@ -97,26 +97,22 @@ public class RunningTrackerDBHandler extends SQLiteOpenHelper{
         return noOfRowsAffected;
     }
 
-    public int updateHeight (double height){
-        int noOfRowsAffected;
+    public void updateHeight (double height){
         int userID = 1;
         String[] args = new String[]{String.valueOf(userID)};
         ContentValues values = new ContentValues();
         values.put(RunningTrackerContract.USER_HEIGHT, height);
         SQLiteDatabase db = this.getWritableDatabase();
-        noOfRowsAffected = db.update(RunningTrackerContract.TABLE_USER_DETAILS, values, RunningTrackerContract.USER_ID + "=?", args);
-        return noOfRowsAffected;
+        db.update(RunningTrackerContract.TABLE_USER_DETAILS, values, RunningTrackerContract.USER_ID + "=?", args);
     }
 
-    public int updateWeight (double weight){
-        int noOfRowsAffected;
+    public void updateWeight (double weight){
         int userID = 1;
         String[] args = new String[]{String.valueOf(userID)};
         ContentValues values = new ContentValues();
         values.put(RunningTrackerContract.USER_WEIGHT, weight);
         SQLiteDatabase db = this.getWritableDatabase();
-        noOfRowsAffected = db.update(RunningTrackerContract.TABLE_USER_DETAILS, values, RunningTrackerContract.USER_ID + "=?", args);
-        return noOfRowsAffected;
+        db.update(RunningTrackerContract.TABLE_USER_DETAILS, values, RunningTrackerContract.USER_ID + "=?", args);
     }
 
     public int updateWeather (int activityID, String weather){
@@ -129,24 +125,20 @@ public class RunningTrackerDBHandler extends SQLiteOpenHelper{
         return noOfRowsAffected;
     }
 
-    public int updateSatisfaction (int activityID, String satisfaction){
-        int noOfRowsAffected;
+    public void updateSatisfaction (int activityID, String satisfaction){
         String[] args = new String[]{String.valueOf(activityID)};
         ContentValues values = new ContentValues();
         values.put(RunningTrackerContract.ACTIVITIES_SATISFACTION, satisfaction);
         SQLiteDatabase db = this.getWritableDatabase();
-        noOfRowsAffected = db.update(RunningTrackerContract.TABLE_ACTIVITIES, values, RunningTrackerContract.ACTIVITIES_ID + "=?", args);
-        return noOfRowsAffected;
+        db.update(RunningTrackerContract.TABLE_ACTIVITIES, values, RunningTrackerContract.ACTIVITIES_ID + "=?", args);
     }
 
-    public int updateNotes (int activityID, String notes){
-        int noOfRowsAffected;
+    public void updateNotes (int activityID, String notes){
         String[] args = new String[]{String.valueOf(activityID)};
         ContentValues values = new ContentValues();
         values.put(RunningTrackerContract.ACTIVITIES_NOTES, notes);
         SQLiteDatabase db = this.getWritableDatabase();
-        noOfRowsAffected = db.update(RunningTrackerContract.TABLE_ACTIVITIES, values, RunningTrackerContract.ACTIVITIES_ID + "=?", args);
-        return noOfRowsAffected;
+        db.update(RunningTrackerContract.TABLE_ACTIVITIES, values, RunningTrackerContract.ACTIVITIES_ID + "=?", args);
     }
 
     public boolean deleteActivity (int activityID) {

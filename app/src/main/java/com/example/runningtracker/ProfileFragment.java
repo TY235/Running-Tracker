@@ -10,17 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener{
 
 
-    private String userName;
     private double userHeightInCM, userWeightInKG;
     private EditText nameView, heightView, weightView;
-    private MaterialButton updateBtn;
     private ProfileFragmentListener listener;
 
     public interface ProfileFragmentListener {
@@ -44,10 +41,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
     }
 
     private void initialiseComponents(View view){
-        nameView = (EditText) view.findViewById(R.id.editUserName);
-        heightView = (EditText) view.findViewById(R.id.editUserHeight);
-        weightView = (EditText) view.findViewById(R.id.editUserWeight);
-        updateBtn = (MaterialButton) view.findViewById(R.id.updateProfileButton);
+        nameView = view.findViewById(R.id.editUserName);
+        heightView = view.findViewById(R.id.editUserHeight);
+        weightView = view.findViewById(R.id.editUserWeight);
+        MaterialButton updateBtn = view.findViewById(R.id.updateProfileButton);
         updateBtn.setOnClickListener(this);
     }
 
@@ -65,7 +62,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        userName = nameView.getText().toString();
+        String userName = nameView.getText().toString();
 
         if (heightView.getText().toString().isEmpty()){
             heightView.setError("Height is required " + Utilities.getEmojiByUnicode(0x1F625));

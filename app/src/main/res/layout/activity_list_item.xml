@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="9dp"
-            android:text="2020-02-20"
+            android:text="@string/example_date_with_hyphen"
             app:layout_constraintStart_toEndOf="@id/startGuideline"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="9dp"
-            android:text="20:02"
+            android:text="@string/example_time"
             app:layout_constraintBottom_toTopOf="@id/distance"
             app:layout_constraintEnd_toEndOf="@id/rightGuideline"
             app:layout_constraintVertical_bias="0.17"
@@ -48,9 +48,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="9dp"
-            android:text="69 km"
+            android:text="@string/example_distance_with_heading"
             android:textStyle="bold"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toTopOf="@+id/runningTimeTaken"
             app:layout_constraintStart_toEndOf="@id/startGuideline"
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="9dp"
-            android:text="69:69 min"
+            android:text="@string/example_time_taken_with_heading"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/startGuideline" />
 
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="9dp"
-            android:text="69 m/s"
+            android:text="@string/example_speed_with_heading"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/caloriesBurned"
             app:layout_constraintStart_toEndOf="@+id/runningTimeTaken"
@@ -81,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="9dp"
-            android:text="6969 kCal"
+            android:text="@string/example_calories_burned_with_heading"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/rightGuideline"
             app:layout_constraintHorizontal_bias="0.66"
@@ -92,7 +92,7 @@
             android:id="@+id/activityID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ID"
+            android:text="@string/example_activity_id"
             android:visibility="invisible"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -114,7 +114,8 @@
             app:layout_constraintBottom_toTopOf="@+id/satisfactionIcon"
             app:layout_constraintEnd_toEndOf="@id/endGuideline"
             app:layout_constraintStart_toStartOf="@+id/rightGuideline"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/weather_icon_description" />
 
         <ImageView
             android:id="@+id/satisfactionIcon"
@@ -125,7 +126,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/endGuideline"
             app:layout_constraintStart_toEndOf="@id/rightGuideline"
-            app:layout_constraintTop_toBottomOf="@id/weatherIcon" />
+            app:layout_constraintTop_toBottomOf="@id/weatherIcon"
+            android:contentDescription="@string/satisfaction_icon_description" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/endGuideline"

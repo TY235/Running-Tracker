@@ -14,7 +14,7 @@ import java.util.Locale;
 
 public class StatsOverviewSliderAdapter extends RecyclerView.Adapter<StatsOverviewSliderAdapter.ViewHolder>{
 
-    private ArrayList<StatsOverviewModel> statsOverviewModels;
+    private final ArrayList<StatsOverviewModel> statsOverviewModels;
     String[] headings = {"All Time", "This Month", "Today"};
 
     public StatsOverviewSliderAdapter(ArrayList<StatsOverviewModel> statsOverviewModels){
@@ -51,16 +51,16 @@ public class StatsOverviewSliderAdapter extends RecyclerView.Adapter<StatsOvervi
         return statsOverviewModels.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView totalDistanceView, totalRunsView, highestSpeedView, totalCaloriesView, headingView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             Log.d("vp", "ViewHolder: view founded!!!!!!!!" );
-            totalDistanceView = (TextView) itemView.findViewById(R.id.statsOverviewItems_totalDistance);
-            totalRunsView = (TextView) itemView.findViewById(R.id.statsOverviewItems_totalRuns);
-            highestSpeedView = (TextView) itemView.findViewById(R.id.statsOverviewItems_highestSpeed);
-            totalCaloriesView = (TextView) itemView.findViewById(R.id.statsOverviewItems_totalCaloriesBurned);
-            headingView = (TextView) itemView.findViewById(R.id.statsOverview_heading);
+            totalDistanceView = itemView.findViewById(R.id.statsOverviewItems_totalDistance);
+            totalRunsView = itemView.findViewById(R.id.statsOverviewItems_totalRuns);
+            highestSpeedView = itemView.findViewById(R.id.statsOverviewItems_highestSpeed);
+            totalCaloriesView = itemView.findViewById(R.id.statsOverviewItems_totalCaloriesBurned);
+            headingView = itemView.findViewById(R.id.statsOverview_heading);
         }
     }
 

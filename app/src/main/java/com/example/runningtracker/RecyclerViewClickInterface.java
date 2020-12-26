@@ -1,5 +1,5 @@
 package com.example.runningtracker;
 
 public interface RecyclerViewClickInterface {
-    void onIDSent(int activityID);
+    void onActivityClicked(int activityID);
 }

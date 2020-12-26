@@ -57,7 +57,7 @@ public class RunFragment extends Fragment implements View.OnClickListener, OnMap
     private GoogleMap map;
 
     MapView mapView;
-    View startFilterBtwMapNBtn, pauseFilterBtwMapNBtns, statsBackground;
+    View startFilterBtwMapNBtn, pauseFilterBtwMapNBtn, statsBackground;
     MaterialButton startBtn, pauseBtn, resumeBtn, stopBtn;
     TextView resumeBtnText, stopBtnText, distance, pace, time, welcomeText;
 
@@ -205,10 +205,10 @@ public class RunFragment extends Fragment implements View.OnClickListener, OnMap
         map.animateCamera(cu);
     }
 
-    private void zoomOutMapViewToIncludeWholeRoute(ArrayList<ArrayList<LatLng>> polylines){
+    private void zoomOutMapViewToIncludeWholeRoute(ArrayList<ArrayList<LatLng>> polyline){
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        for (ArrayList<LatLng> polyline : polylines){
-            for (LatLng latLng : polyline) {
+        for (ArrayList<LatLng> line : polyline){
+            for (LatLng latLng : line) {
                 builder.include(latLng);
             }
         }
@@ -238,10 +238,10 @@ public class RunFragment extends Fragment implements View.OnClickListener, OnMap
                 @Override
                 public void onReceive(Context context, Intent intent) {
                 totalTimeTakenInSeconds = intent.getExtras().getInt("seconds");
-                time.setText(String.format("Time\n%s\nmins", Utilities.convertStoHMS(totalTimeTakenInSeconds)));
+                time.setText(String.format("Time\n%s\nmin", Utilities.convertStoHMS(totalTimeTakenInSeconds)));
                 speedInMetersPerSecond = Utilities.calculateSpeedInMetersPerSecond(totalDistanceTravelledInMeters, totalTimeTakenInSeconds);
                 paceInMinutesPerKM = Utilities.calculatePaceInMinutesPerKM(totalDistanceTravelledInMeters, totalTimeTakenInSeconds);
-                pace.setText(String.format(Locale.ENGLISH, "Pace\n%.2f\nmins/km", paceInMinutesPerKM));
+                pace.setText(String.format(Locale.ENGLISH, "Pace\n%.2f\nmin/km", paceInMinutesPerKM));
                 }
             };
         }
@@ -308,7 +308,7 @@ public class RunFragment extends Fragment implements View.OnClickListener, OnMap
         stopBtn.setVisibility(View.VISIBLE);
         resumeBtnText.setVisibility(View.VISIBLE);
         stopBtnText.setVisibility(View.VISIBLE);
-        pauseFilterBtwMapNBtns.setVisibility(View.VISIBLE);
+        pauseFilterBtwMapNBtn.setVisibility(View.VISIBLE);
         trackingService.stopUpdateLocation();
     }
 
@@ -318,7 +318,7 @@ public class RunFragment extends Fragment implements View.OnClickListener, OnMap
         resumeBtnText.setVisibility(View.GONE);
         stopBtnText.setVisibility(View.GONE);
         pauseBtn.setVisibility(View.VISIBLE);
-        pauseFilterBtwMapNBtns.setVisibility(View.GONE);
+        pauseFilterBtwMapNBtn.setVisibility(View.GONE);
     }
 
     public void updateStopTrackingUI(){
@@ -330,7 +330,7 @@ public class RunFragment extends Fragment implements View.OnClickListener, OnMap
         time.setVisibility(View.GONE);
         distance.setVisibility(View.GONE);
         statsBackground.setVisibility(View.GONE);
-        pauseFilterBtwMapNBtns.setVisibility(View.GONE);
+        pauseFilterBtwMapNBtn.setVisibility(View.GONE);
         map.clear();
         startFilterBtwMapNBtn.setVisibility(View.VISIBLE);
         welcomeText.setVisibility(View.VISIBLE);
@@ -338,31 +338,32 @@ public class RunFragment extends Fragment implements View.OnClickListener, OnMap
     }
 
     private void initialiseLayoutComponents(View view){
-        startBtn = (MaterialButton) view.findViewById(R.id.startButton);
+        startBtn = view.findViewById(R.id.startButton);
         startBtn.setOnClickListener(this);
-        pauseBtn = (MaterialButton) view.findViewById(R.id.pauseButton);
+        pauseBtn = view.findViewById(R.id.pauseButton);
         pauseBtn.setOnClickListener(this);
-        resumeBtn = (MaterialButton) view.findViewById(R.id.resumeButton);
+        resumeBtn = view.findViewById(R.id.resumeButton);
         resumeBtn.setOnClickListener(this);
-        stopBtn = (MaterialButton) view.findViewById(R.id.stopButton);
+        stopBtn = view.findViewById(R.id.stopButton);
         stopBtn.setOnClickListener(this);
 
-        resumeBtnText = (TextView) view.findViewById(R.id.resumeBtnText);
-        stopBtnText = (TextView) view.findViewById(R.id.stopBtnText);
-        time = (TextView) view.findViewById(R.id.time);
-        distance = (TextView) view.findViewById(R.id.distance);
-        pace = (TextView) view.findViewById(R.id.pace);
+        resumeBtnText = view.findViewById(R.id.resumeBtnText);
+        stopBtnText = view.findViewById(R.id.stopBtnText);
+        time = view.findViewById(R.id.time);
+        distance = view.findViewById(R.id.distance);
+        pace = view.findViewById(R.id.pace);
 
-        startFilterBtwMapNBtn = (View) view.findViewById(R.id.startFilterBtwMapNBtn);
-        pauseFilterBtwMapNBtns = (View) view.findViewById(R.id.pauseFilterBtwMapNBtns);
-        statsBackground = (View) view.findViewById(R.id.statsBackground);
-        welcomeText = (TextView) view.findViewById(R.id.welcomeText);
+        startFilterBtwMapNBtn = view.findViewById(R.id.startFilterBtwMapNBtn);
+        pauseFilterBtwMapNBtn = view.findViewById(R.id.pauseFilterBtwMapNBtns);
+        statsBackground = view.findViewById(R.id.statsBackground);
+        welcomeText = view.findViewById(R.id.welcomeText);
 
-        mapView = (MapView) view.findViewById(R.id.mapView);
+        mapView = view.findViewById(R.id.mapView);
         mapView.onCreate(null);
         mapView.getMapAsync(this);
     }
 
+    @SuppressWarnings("deprecation")
     private boolean isTrackingServiceRunning() {
         ActivityManager manager = (ActivityManager) requireActivity().getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {

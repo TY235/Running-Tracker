@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.hardware.GeomagneticField;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -18,7 +17,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -67,7 +65,7 @@ public class TrackingService extends Service {
         distance = 0;
         seconds = 0;
         handler = new Handler();
-        polyline =  new ArrayList<ArrayList<LatLng>>();
+        polyline = new ArrayList<>();
         setNotification();
         startTracking();
         return START_REDELIVER_INTENT;
@@ -83,19 +81,13 @@ public class TrackingService extends Service {
 
                 if (firstLocation){
                     firstLocation = false;
-                    coordinates = new ArrayList<LatLng>();
+                    coordinates = new ArrayList<>();
                     previousLocation.setLatitude(location.getLatitude());
                     previousLocation.setLongitude(location.getLongitude());
                     polyline.add(coordinates);
                 }
 
                 distance += location.distanceTo(previousLocation);
-                GeomagneticField field = new GeomagneticField(
-                        (float)location.getLatitude(),
-                        (float)location.getLongitude(),
-                        (float)location.getAltitude(),
-                        System.currentTimeMillis()
-                );
                 coordinates.add(new LatLng(location.getLatitude(), location.getLongitude()));
 
                 Intent i = new Intent("updatedLocation");

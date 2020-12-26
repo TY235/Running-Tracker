@@ -33,13 +33,14 @@
         android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/activityDetails_dateTimeGuideline"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/activity_details_back_btn_description" />
 
     <TextView
         android:id="@+id/activityDetails_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="20/02/2020"
+        android:text="@string/example_date"
         app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintVertical_bias="0.66"
         app:layout_constraintBottom_toTopOf="@id/activityDetails_dateTimeGuideline"
@@ -51,7 +52,7 @@
         android:id="@+id/activityDetails_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="20:20"
+        android:text="@string/example_time"
         android:layout_marginStart="9dp"
         app:layout_constraintVertical_bias="0.66"
         app:layout_constraintTop_toTopOf="parent"
@@ -68,7 +69,8 @@
         android:layout_marginEnd="9dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/activityDetails_dateTimeGuideline" />
+        app:layout_constraintBottom_toTopOf="@id/activityDetails_dateTimeGuideline"
+        android:contentDescription="@string/activity_details_delete_btn_description" />
 
 
 
@@ -95,7 +97,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/futura_extra_bold_oblique"
         android:textColor="@color/black"
-        android:text="69.69"
+        android:text="@string/example_distance"
         android:layout_marginTop="6dp"
         android:textSize="59sp"
         app:layout_constraintStart_toStartOf="@id/activityDetails_startGuideline"
@@ -105,7 +107,7 @@
         android:id="@+id/activityDetails_distanceHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Kilometers"
+        android:text="@string/distance_heading"
         android:layout_marginStart="6dp"
         android:layout_marginTop="6dp"
         app:layout_constraintStart_toStartOf="@id/activityDetails_distance"
@@ -117,7 +119,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
-        android:text="6.96"
+        android:text="@string/example_pace"
         android:textColor="@color/black"
         android:textSize="36sp"
         android:layout_marginTop="36dp"
@@ -128,7 +130,7 @@
         android:id="@+id/activityDetails_paceHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pace"
+        android:text="@string/pace_heading"
         app:layout_constraintTop_toBottomOf="@id/activityDetails_pace"
         app:layout_constraintStart_toStartOf="@id/activityDetails_startGuideline" />
 
@@ -136,7 +138,7 @@
         android:id="@+id/activityDetails_speed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="9.69"
+        android:text="@string/example_speed"
         android:fontFamily="sans-serif-black"
         android:textColor="@color/black"
         android:textSize="36sp"
@@ -148,7 +150,7 @@
         android:id="@+id/activityDetails_speedHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Speed"
+        android:text="@string/speed_heading"
         app:layout_constraintStart_toStartOf="@id/activityDetails_speed"
         app:layout_constraintTop_toBottomOf="@id/activityDetails_speed" />
 
@@ -156,7 +158,7 @@
         android:id="@+id/activityDetails_timeTaken"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="9:33"
+        android:text="@string/example_time_taken"
         android:fontFamily="sans-serif-black"
         android:textColor="@color/black"
         android:textSize="36sp"
@@ -169,7 +171,7 @@
         android:id="@+id/activityDetails_timeTakenHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Time"
+        android:text="@string/time_taken_heading"
         app:layout_constraintStart_toStartOf="@id/activityDetails_timeTaken"
         app:layout_constraintBottom_toBottomOf="@id/activityDetails_distanceHeading"/>
 
@@ -178,7 +180,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="6dp"
-        android:text="69"
+        android:text="@string/example_calories_burned"
         android:fontFamily="sans-serif-black"
         android:textColor="@color/black"
         android:textSize="36sp"
@@ -189,7 +191,7 @@
         android:id="@+id/activityDetails_caloriesBurnedHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calories"
+        android:text="@string/calories_burned_heading"
         app:layout_constraintStart_toStartOf="@id/activityDetails_caloriesBurned"
         app:layout_constraintTop_toBottomOf="@id/activityDetails_caloriesBurned" />
 
@@ -206,7 +208,7 @@
         android:id="@+id/activityDetails_weatherHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Weather"
+        android:text="@string/weather_heading"
         app:layout_constraintStart_toStartOf="@id/activityDetails_weather"
         app:layout_constraintTop_toBottomOf="@id/activityDetails_weather" />
 
@@ -223,7 +225,7 @@
         android:id="@+id/activityDetails_satisfactionHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Satisfaction"
+        android:text="@string/satisfaction_heading"
         app:layout_constraintStart_toStartOf="@id/activityDetails_satisfaction"
         app:layout_constraintTop_toBottomOf="@id/activityDetails_satisfaction" />
 
@@ -233,10 +235,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="49dp"
-        android:text="Notes: "
+        android:text="@string/notes_heading"
         app:layout_constraintStart_toStartOf="@id/activityDetails_startGuideline"
         app:layout_constraintTop_toBottomOf="@id/activityDetails_weatherHeading"
-        tools:layout_editor_absoluteY="524dp" />
+        android:labelFor="@id/activityDetails_notes" />
 
     <EditText
         android:id="@+id/activityDetails_notes"
@@ -248,7 +250,8 @@
         android:inputType="textMultiLine|textNoSuggestions"
         app:layout_constraintEnd_toStartOf="@id/activityDetails_endGuideline"
         app:layout_constraintStart_toStartOf="@id/activityDetails_notesHeading"
-        app:layout_constraintTop_toBottomOf="@id/activityDetails_notesHeading" />
+        app:layout_constraintTop_toBottomOf="@id/activityDetails_notesHeading"
+        android:importantForAutofill="no" />
 
 
 
@@ -263,7 +266,7 @@
         android:stateListAnimator="@null"
         android:fontFamily="sans-serif-black"
         android:background="@drawable/ripple_effect"
-        android:text="UPDATE"
+        android:text="@string/update_btn_text"
         android:textSize="20sp"
         app:backgroundTint="@color/medium_turquoise"
         app:icon="@drawable/ic_update"

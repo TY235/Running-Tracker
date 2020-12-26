@@ -27,7 +27,7 @@ public class RunningTrackerContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        runningTrackerDBHandler = new RunningTrackerDBHandler(getContext(), null, null, 1);
+        runningTrackerDBHandler = new RunningTrackerDBHandler(getContext(), null);
         return true;
     }
 
