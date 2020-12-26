@@ -354,7 +354,7 @@ public class RunFragment extends Fragment implements View.OnClickListener, OnMap
         pace = view.findViewById(R.id.pace);
 
         startFilterBtwMapNBtn = view.findViewById(R.id.startFilterBtwMapNBtn);
-        pauseFilterBtwMapNBtn = view.findViewById(R.id.pauseFilterBtwMapNBtns);
+        pauseFilterBtwMapNBtn = view.findViewById(R.id.pauseFilterBtwMapNBtn);
         statsBackground = view.findViewById(R.id.statsBackground);
         welcomeText = view.findViewById(R.id.welcomeText);
 

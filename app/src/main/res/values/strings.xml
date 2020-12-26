@@ -57,4 +57,8 @@
     <string name="total_runs_heading">Total Runs</string>
     <string name="highest_speed_heading">Highest Speed</string>
     <string name="total_calories_unit_heading">Total kCal</string>
+    <string name="welcome_text">Hi,<br />Anonymous!<br />Are You Ready<br />for a Workout?</string>
+    <string name="example_tracking_time">Time<br />00:00:00<br />min</string>
+    <string name="example_tracking_distance">Distance<br />00.00<br />km</string>
+    <string name="example_tracking_pace">Pace<br />00:00<br />min/km</string>
 </resources>

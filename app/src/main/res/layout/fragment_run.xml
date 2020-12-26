@@ -38,7 +38,7 @@
         android:fontFamily="@font/futura_extra_bold_oblique"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="8dp"
-        android:text="Hi,\nAnonymous!\nAre You Ready\nfor a Workout?"
+        android:text="@string/welcome_text"
         android:textColor="#FCFFFFFF"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/startButton"
@@ -92,7 +92,7 @@
         android:textSize="17sp"
         android:textColor="@android:color/white"
         android:fontFamily="@font/futura_extra_bold_oblique"
-        android:text="Time\n00:00:00\nmins"
+        android:text="@string/example_tracking_time"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/statsBackground"
         app:layout_constraintEnd_toStartOf="@id/distance"
@@ -108,7 +108,7 @@
         android:textSize="26sp"
         android:fontFamily="@font/futura_extra_bold_oblique"
         android:textColor="@android:color/white"
-        android:text="Distance\n00.00\nkm"
+        android:text="@string/example_tracking_distance"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/statsBackground"
         app:layout_constraintEnd_toStartOf="@id/pace"
@@ -124,25 +124,12 @@
         android:gravity="center_horizontal"
         android:fontFamily="@font/futura_extra_bold_oblique"
         android:textColor="@android:color/white"
-        android:text="Pace\n00:00\nmins/km"
+        android:text="@string/example_tracking_pace"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/statsBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/distance"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/speed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="10dp"
-        android:text="Speed\n00.00 m/s"
-        android:gravity="center_horizontal"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/pace"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/time" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/pauseButton"
@@ -170,7 +157,7 @@
 
     <!--    Pause Tracking Layout     -->
     <View
-        android:id="@+id/pauseFilterBtwMapNBtns"
+        android:id="@+id/pauseFilterBtwMapNBtn"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#992B2929"

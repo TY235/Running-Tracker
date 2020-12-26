@@ -230,7 +230,7 @@ public class ActivityDetailsFragment extends Fragment implements AdapterView.OnI
             Log.d("Update", "fragment id: " + activityID);
             Log.d("Update", "fragment weather: " + weather);
             Log.d("Update", "fragment satisfaction: " + satisfaction);
-            listener.onDetailsUpdate(activityID, weather, satisfaction, notesView.getText().toString());
+            listener.onDetailsUpdate(activityID, weather, satisfaction, notesView.getText().toString().trim());
         }
         else if (id == R.id.activityDetails_backButton){
             listener.onActivityDetailsBackButtonClicked();
