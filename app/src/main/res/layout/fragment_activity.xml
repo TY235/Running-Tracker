@@ -29,7 +29,7 @@
         android:elevation="3dp"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_stats_overview_next"
-        android:contentDescription="@string/stats_overview_btn_description" />
+        android:contentDescription="@string/stats_overview_previous_btn_description" />
 
     <ImageButton
         android:id="@+id/nextButton"
@@ -41,7 +41,7 @@
         app:layout_constraintTop_toTopOf="@id/statsOverview"
         app:layout_constraintBottom_toBottomOf="@id/statsOverview"
         android:elevation="3dp"
-        android:contentDescription="@string/stats_overview_btn_description"
+        android:contentDescription="@string/stats_overview_next_btn_description"
         android:src="@drawable/ic_stats_overview_next" />
 
     <LinearLayout

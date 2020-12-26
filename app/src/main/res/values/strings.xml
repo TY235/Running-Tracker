@@ -3,62 +3,64 @@
     <string name="nav_run_title">Run</string>
     <string name="nav_activity_title">Activity</string>
     <string name="nav_profile_title">Profile</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="start_run_btn_text">START</string>
     <string name="pause_run_btn_text">PAUSE</string>
     <string name="resume_btn_text">RESUME</string>
     <string name="stop_btn_text">STOP</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="stats_overview_btn_description">Button to move to previous stats overview.</string>
+    <string name="save_btn_text">SAVE</string>
+    <string name="update_btn_text">UPDATE</string>
+
+    <string name="stats_overview_previous_btn_description">Button to move to previous stats overview.</string>
+    <string name="stats_overview_next_btn_description">Button to move to next stats overview.</string>
     <string name="activity_details_back_btn_description">Button to move back to activity fragment.</string>
+    <string name="activity_details_delete_btn_description">Button to delete the current activity.</string>
+    <string name="weather_icon_description">Icon to represent the weather of that activity.</string>
+    <string name="profile_illustration_description">Illustration for update profile fragment.</string>
+    <string name="satisfaction_icon_description">Icon to represent the satisfaction of that activity.</string>
+
+    <string name="example_activity_id">3</string>
     <string name="example_date">20/02/2020</string>
     <string name="example_time">20:20</string>
-    <string name="activity_details_delete_btn_description">Button to delete the current activity.</string>
     <string name="example_distance">69.69</string>
-    <string name="distance_heading">Kilometers</string>
-    <string name="example_pace">6.96</string>
-    <string name="pace_heading">Pace</string>
-    <string name="example_speed">9.69</string>
-    <string name="speed_heading">Speed</string>
     <string name="example_time_taken">9:33</string>
-    <string name="time_taken_heading">Time</string>
+    <string name="example_speed">9.69</string>
+    <string name="example_pace">6.96</string>
     <string name="example_calories_burned">69</string>
-    <string name="calories_burned_heading">Calories</string>
-    <string name="weather_heading">Weather</string>
-    <string name="satisfaction_heading">Satisfaction</string>
-    <string name="notes_heading">Notes:</string>
-    <string name="update_btn_text">UPDATE</string>
-    <string name="example_activity_id">3</string>
-    <string name="weather_icon_description">Icon to represent the weather of that activity.</string>
-    <string name="satisfaction_icon_description">Icon to represent the satisfaction of that activity.</string>
+    <string name="example_no_of_runs">6</string>
     <string name="example_date_with_hyphen">2020–02–20</string>
     <string name="example_distance_with_heading">69 km</string>
     <string name="example_speed_with_heading">69 m/s</string>
     <string name="example_calories_burned_with_heading">6969 kcal</string>
-    <string name="example_time_taken_with_heading">9:33</string>
-    <string name="height_heading">Height:</string>
-    <string name="height_input_hint">Height (cm)</string>
-    <string name="weight_heading">Weight:</string>
-    <string name="weight_input_hint">Weight (kg)</string>
-    <string name="profile_illustration_description">Illustration for update profile fragment.</string>
-    <string name="profile_fragment_heading">Profile</string>
-    <string name="name_heading">Name:</string>
-    <string name="name_input_hint">Name</string>
-    <string name="duration_heading">Duration</string>
-    <string name="speed_with_unit_heading">Speed(m/s)</string>
-    <string name="calories_unit_heading">Kcal</string>
+
     <string name="distance_with_unit_heading">Distance(km)</string>
     <string name="pace_with_unit_heading">Pace(min/km)</string>
-    <string name="save_btn_text">SAVE</string>
-    <string name="stats_overview_heading">All Time</string>
-    <string name="total_distance_heading">Total Kilometers</string>
-    <string name="example_no_of_runs">6</string>
-    <string name="total_runs_heading">Total Runs</string>
-    <string name="highest_speed_heading">Highest Speed</string>
+    <string name="speed_with_unit_heading">Speed(m/s)</string>
+    <string name="distance_unit_heading">Kilometers</string>
+    <string name="calories_unit_heading">Kcal</string>
     <string name="total_calories_unit_heading">Total kcal</string>
-    <string name="welcome_text">Hi,<br />Anonymous!<br />Are You Ready<br />for a Workout?</string>
-    <string name="example_tracking_time">Time<br />00:00:00<br />min</string>
-    <string name="example_tracking_distance">Distance<br />00.00<br />km</string>
-    <string name="example_tracking_pace">Pace<br />00:00<br />min/km</string>
+    <string name="distance_heading">Distance</string>
+    <string name="pace_heading">Pace</string>
+    <string name="speed_heading">Speed</string>
+    <string name="time_taken_heading">Time</string>
+    <string name="duration_heading">Duration</string>
+    <string name="calories_burned_heading">Calories</string>
+    <string name="weather_heading">Weather</string>
+    <string name="satisfaction_heading">Satisfaction</string>
+    <string name="total_runs_heading">Total Runs</string>
+    <string name="total_distance_heading">Total Kilometers</string>
+    <string name="highest_speed_heading">Highest Speed</string>
+    <string name="notes_heading">Notes:</string>
+    <string name="name_heading">Name:</string>
+    <string name="height_heading">Height:</string>
+    <string name="weight_heading">Weight:</string>
+    <string name="stats_overview_heading">All Time</string>
+    <string name="profile_fragment_heading">Profile</string>
+
+    <string name="name_input_hint">Name</string>
+    <string name="height_input_hint">Height (cm)</string>
+    <string name="weight_input_hint">Weight (kg)</string>
+
+    <string name="welcome_text"><br>Hi,\n</br><br>Anonymous\n</br><br>Are You Ready\n</br><br>for a Workout?</br></string>
+
 </resources>

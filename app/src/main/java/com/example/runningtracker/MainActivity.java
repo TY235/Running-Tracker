@@ -3,13 +3,16 @@ package com.example.runningtracker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.Manifest;
 import android.app.LoaderManager;
 import android.content.ContentResolver;
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -24,6 +27,8 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements RunFragment.RunFragmentListener, ResultFragment.ResultFragmentListener, ProfileFragment.ProfileFragmentListener, ActivityFragment.ActivityFragmentListener, ActivityDetailsFragment.ActivityDetailsFragmentListener, LoaderManager.LoaderCallbacks<Cursor> {
 
+    /* Permission Code */
+    private static final int LOCATION_PERMISSION_CODE = 100;
 
     /* Cursor IDs */
     private static final int CURSOR_ID_USER_DETAILS = 0;
@@ -49,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
 
     private BottomNavigationView bottomNav;
 
-    private boolean firstTimeLoad = true, inResultFragment = false, sortedByDateDesc, sortedByDistanceDesc;
+    private boolean firstTimeOpenApp = false, firstTimeLoad = true, inResultFragment = false, sortedByDateDesc, sortedByDistanceDesc;
     private double userWeight=0, userHeight=0;
     private int startDate=0, startTime =0;
     private String userName="";
@@ -61,6 +66,46 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        firstTimeOpenApp = true;
+        if (runtimePermissionCheck()){
+            initialiseComponents();
+            firstTimeOpenApp = false;
+        }
+    }
+
+    /* Request for permission to access fine location at runtime and return true if permission is granted */
+    private boolean runtimePermissionCheck() {
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            return true;
+        }
+        else{
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_CODE);
+            return false;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == LOCATION_PERMISSION_CODE){
+            if( grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                if (firstTimeOpenApp){
+                    /* Start initialise components if permission is granted */
+                    initialiseComponents();
+                    /* Query for user details when the activity is started and update the welcome text */
+                    getUserDetailsNUpdateWelcomeText();
+                }
+            }else {
+                /* Request for permission again if it is not granted */
+                runtimePermissionCheck();
+            }
+        }
+    }
+
+    /* Initialise components that are required when the activity is first created */
+    private void initialiseComponents(){
+        /* Remove all fragments to avoid duplicating of fragments */
+        removeAllFragments();
 
         /* Create DB Handler and get content resolver when activity is created */
         cr = getContentResolver();
@@ -75,13 +120,15 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
         fragmentManager.beginTransaction().add(R.id.fragment_frame, profileFragment, "3").hide(profileFragment).commit();
         fragmentManager.beginTransaction().add(R.id.fragment_frame, resultFragment, "Result").hide(resultFragment).commit();
         fragmentManager.beginTransaction().add(R.id.fragment_frame, activityDetailsFragment, "Details").hide(activityDetailsFragment).commit();
+        bottomNav.setSelectedItemId(R.id.nav_run);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        /* Query for user details when the activity is started and update the welcome text */
-        getUserDetailsNUpdateWelcomeText();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            getUserDetailsNUpdateWelcomeText();
+        }
     }
 
     @Override
@@ -335,6 +382,14 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
         Toast.makeText(getBaseContext(), "An error has occurred " + Utilities.getEmojiByUnicode(0x2639), Toast.LENGTH_LONG).show();
     }
 
+    private void removeAllFragments(){
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            if (fragment != null) {
+                getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            }
+        }
+    }
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
         if (id == CURSOR_ID_USER_DETAILS){
@@ -372,9 +427,9 @@ public class MainActivity extends AppCompatActivity implements RunFragment.RunFr
                         userWeight = data.getDouble(3);
                     }
                     data.close();
-                    /* Update welcome text in run fragment with the user name obtained from database or blank string if no result returned */
-                    runFragment.updateWelcomeText(userName);
                 }
+                /* Update welcome text in run fragment with the user name obtained from database or blank string if no result returned */
+                runFragment.updateWelcomeText(userName);
                 break;
 
             case CURSOR_ID_STATS_OVERVIEW:
