@@ -241,12 +241,15 @@ public class ResultFragment extends Fragment implements AdapterView.OnItemSelect
 
     @Override
     public void onClick(View v) {
+        /* Reset the spinner to initial position */
+        resetSpinnersOptions();
         int btn = v.getId();
-        if (btn == R.id.saveButton || btn == R.id.discardButton){
-            /* Reset the spinner to initial position */
-            resetSpinnersOptions();
+        if (btn == R.id.saveButton){
             /* Send the details to the class that implemented the interface (MainActivity) */
             listener.onResultSaveButtonClicked(true, polyline, totalTimeTakenInSeconds, totalDistanceTravelledInKM, paceInMinutesPerKM, speedInMetersPerSecond, caloriesBurned, weather, satisfaction);
+        }
+        else if (btn == R.id.discardButton){
+            listener.onResultSaveButtonClicked(false, polyline, totalTimeTakenInSeconds, totalDistanceTravelledInKM, paceInMinutesPerKM, speedInMetersPerSecond, caloriesBurned, weather, satisfaction);
         }
     }
 
