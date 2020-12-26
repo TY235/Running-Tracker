@@ -1,5 +1,6 @@
 package com.example.runningtracker;
 
+/* A model class to store all the details of the activity required for the activity details fragment */
 public class ActivityDetailsModel {
 
     private final double totalDistance,avgSpeed, totalCaloriesBurned, pace;

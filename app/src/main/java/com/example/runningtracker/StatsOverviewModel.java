@@ -1,5 +1,6 @@
 package com.example.runningtracker;
 
+/* A model class to store the stats overviews */
 public class StatsOverviewModel{
 
     private final double totalDistance, highestSpeed, totalCaloriesBurned;

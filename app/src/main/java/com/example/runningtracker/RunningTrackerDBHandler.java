@@ -16,12 +16,14 @@ public class RunningTrackerDBHandler extends SQLiteOpenHelper{
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
 
+    /* Create the required tables when the DB Handler is created */
     @Override
     public void onCreate(SQLiteDatabase db) {
         addActivitiesTable(db);
         addUserDetailsTable(db);
     }
 
+    /* Create activities table */
     private void addActivitiesTable(SQLiteDatabase db) {
         String sql = "CREATE TABLE " +  RunningTrackerContract.TABLE_ACTIVITIES + " (" +
                 RunningTrackerContract.ACTIVITIES_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
@@ -38,6 +40,7 @@ public class RunningTrackerDBHandler extends SQLiteOpenHelper{
         db.execSQL(sql);
     }
 
+    /* Create user details table */
     private void addUserDetailsTable(SQLiteDatabase db) {
         String sql = "CREATE TABLE " +  RunningTrackerContract.TABLE_USER_DETAILS + " (" +
                 RunningTrackerContract.USER_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
@@ -56,6 +59,7 @@ public class RunningTrackerDBHandler extends SQLiteOpenHelper{
         onCreate(db);
     }
 
+    /* Add new record of activity to activities table and return the new id for the record */
     public int addActivities (int date, int time, double distance, double timeTaken, double speed, double pace, double caloriesBurned, String weather, String satisfaction){
         int newId;
         ContentValues values = new ContentValues();
@@ -74,6 +78,7 @@ public class RunningTrackerDBHandler extends SQLiteOpenHelper{
         return newId;
     }
 
+    /* Add new record of user details to activities table and return the new id for the record */
     public int addUserDetails (String name, double height, double weight){
         int newId;
         ContentValues values = new ContentValues();
@@ -86,6 +91,7 @@ public class RunningTrackerDBHandler extends SQLiteOpenHelper{
         return newId;
     }
 
+    /* Update the user's name in user details table but only update the first record as only one user is required for the app currently and return the number of rows affected */
     public int updateName (String name){
         int noOfRowsAffected;
         int userID = 1;
@@ -97,6 +103,7 @@ public class RunningTrackerDBHandler extends SQLiteOpenHelper{
         return noOfRowsAffected;
     }
 
+    /* Update the user's height in user details table but only update the first record as only one user is required for the app currently */
     public void updateHeight (double height){
         int userID = 1;
         String[] args = new String[]{String.valueOf(userID)};
@@ -106,6 +113,7 @@ public class RunningTrackerDBHandler extends SQLiteOpenHelper{
         db.update(RunningTrackerContract.TABLE_USER_DETAILS, values, RunningTrackerContract.USER_ID + "=?", args);
     }
 
+    /* Update the user's weight in user details table but only update the first record as only one user is required for the app currently */
     public void updateWeight (double weight){
         int userID = 1;
         String[] args = new String[]{String.valueOf(userID)};
@@ -115,6 +123,7 @@ public class RunningTrackerDBHandler extends SQLiteOpenHelper{
         db.update(RunningTrackerContract.TABLE_USER_DETAILS, values, RunningTrackerContract.USER_ID + "=?", args);
     }
 
+    /* Update the weather in activities table and return the number of rows affected */
     public int updateWeather (int activityID, String weather){
         int noOfRowsAffected;
         String[] args = new String[]{String.valueOf(activityID)};
@@ -125,6 +134,7 @@ public class RunningTrackerDBHandler extends SQLiteOpenHelper{
         return noOfRowsAffected;
     }
 
+    /* Update the satisfaction in activities table and return the number of rows affected */
     public void updateSatisfaction (int activityID, String satisfaction){
         String[] args = new String[]{String.valueOf(activityID)};
         ContentValues values = new ContentValues();
@@ -133,6 +143,7 @@ public class RunningTrackerDBHandler extends SQLiteOpenHelper{
         db.update(RunningTrackerContract.TABLE_ACTIVITIES, values, RunningTrackerContract.ACTIVITIES_ID + "=?", args);
     }
 
+    /* Update the notes in activities table and return the number of rows affected */
     public void updateNotes (int activityID, String notes){
         String[] args = new String[]{String.valueOf(activityID)};
         ContentValues values = new ContentValues();
@@ -141,6 +152,7 @@ public class RunningTrackerDBHandler extends SQLiteOpenHelper{
         db.update(RunningTrackerContract.TABLE_ACTIVITIES, values, RunningTrackerContract.ACTIVITIES_ID + "=?", args);
     }
 
+    /* Delete the activity from activities table and return true if it is deleted successfully */
     public boolean deleteActivity (int activityID) {
         int noOfRowsAffected;
         String[] args = new String[]{String.valueOf(activityID)};

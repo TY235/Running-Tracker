@@ -1,6 +1,5 @@
 package com.example.runningtracker;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +14,13 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 
+/* Adapter for activity list in the activity fragment */
 public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapter.ViewHolder>{
 
     private final ArrayList<ActivityModel> activityModelList;
     private final RecyclerViewClickInterface recyclerViewClickInterface;
 
+    /* Get the ArrayList of activity that consists the required details for displaying in the recycler view and the fragment that implements the interface */
     public ActivityListAdapter(ArrayList<ActivityModel>activityModelList, RecyclerViewClickInterface recyclerViewClickInterface){
         this.activityModelList = activityModelList;
         this.recyclerViewClickInterface = recyclerViewClickInterface;
@@ -34,15 +35,13 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-        Log.d("activity model", "id: " + activityModelList.get(position).getActivityID());
         holder.idView.setText(String.valueOf(activityModelList.get(position).getActivityID()));
         holder.dateView.setText(Utilities.formatDateToDDMMYYY(activityModelList.get(position).getDate()));
         holder.timeView.setText(Utilities.formatTimeToHHMM(activityModelList.get(position).getTime()));
         holder.distanceView.setText(String.format(Locale.ENGLISH, "%.2f km", activityModelList.get(position).getTotalDistance()));
         holder.timeTakenView.setText(Utilities.convertStoHMS(activityModelList.get(position).getTotalTimeTaken()));
         holder.speedView.setText(String.format(Locale.ENGLISH, "%s m/s", activityModelList.get(position).getAvgSpeed()));
-        holder.caloriesBurnedView.setText(String.format(Locale.ENGLISH, "%.1f kCal", activityModelList.get(position).getTotalCaloriesBurned()));
+        holder.caloriesBurnedView.setText(String.format(Locale.ENGLISH, "%.1f kcal", activityModelList.get(position).getTotalCaloriesBurned()));
         holder.weatherView.setImageResource(Utilities.convertWeatherIcon(activityModelList.get(position).getWeather()));
         holder.satisfactionView.setImageResource(Utilities.convertSatisfactionIcon(activityModelList.get(position).getSatisfaction()));
     }
@@ -58,7 +57,6 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
         ImageView weatherView, satisfactionView;
         ConstraintLayout parentLayout;
 
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             dateView = itemView.findViewById(R.id.date);
@@ -73,7 +71,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
             parentLayout = itemView.findViewById(R.id.activityItems);
 
             itemView.setOnClickListener(v -> {
-                Log.d("activity model", "id: " + idView.getText().toString());
+                /* Pass the activity ID to the class that implemented the interface (ActivityFragment) when the card view of the recycler view is clicked */
                 recyclerViewClickInterface.onActivityClicked(Integer.parseInt(idView.getText().toString()));
             });
         }

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 import static com.example.runningtracker.TrackingNotification.CHANNEL_ID;
 
+/* Service class that provides tracking of users movement */
 public class TrackingService extends Service {
 
     final String NOTIFICATION_CONTEXT_TITLE = "Running Tracker";
@@ -40,8 +41,7 @@ public class TrackingService extends Service {
     private ArrayList<ArrayList<LatLng>> polyline;
     private Handler handler;
 
-    public TrackingService() {
-    }
+    public TrackingService() {}
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -71,31 +71,38 @@ public class TrackingService extends Service {
         return START_REDELIVER_INTENT;
     }
 
+    /* Starts the tracking of users movement */
     private void startTracking(){
-
         Location previousLocation = new Location("");
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener(){
             @Override
             public void onLocationChanged(Location location) {
-
+                /*  If the current location is the first location */
                 if (firstLocation){
                     firstLocation = false;
+                    /* Create new ArrayList to store the coordinates so that they can form a polyline */
                     coordinates = new ArrayList<>();
+                    /* Set the previous location as current location */
                     previousLocation.setLatitude(location.getLatitude());
                     previousLocation.setLongitude(location.getLongitude());
+                    /* Store the polyline recorded before the user clicked paused into a polyline ArrayList */
                     polyline.add(coordinates);
                 }
 
+                /* Add the distance from the previous location to the current location to distance variable */
                 distance += location.distanceTo(previousLocation);
+                /* Store the current coordinate as LatLng to coordinates ArrayList */
                 coordinates.add(new LatLng(location.getLatitude(), location.getLongitude()));
 
+                /* Broadcast the polyline, speed and distance */
                 Intent i = new Intent("updatedLocation");
                 i.putExtra("polyline", polyline);
                 i.putExtra("currentSpeed", "Current Speed: " +location.getSpeed());
                 i.putExtra("distance", distance);
                 sendBroadcast(i);
 
+                /* Set the current location as the previous location for the next round */
                 previousLocation.setLatitude(location.getLatitude());
                 previousLocation.setLongitude(location.getLongitude());
 
@@ -114,19 +121,20 @@ public class TrackingService extends Service {
             public void onProviderDisabled(String provider) {
                 // the user disabled (for example) the GPS
                 Log.d("g53mdp", "onProviderDisabled: " + provider);
+                /* Brings user to location setting page to turn on location service if it is disabled when the tracking has started */
                 Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
             }
         };
+        /* Call the function to start the location listener and timer thread */
         startUpdateLocation();
     }
 
+    /* Timer thread that counts the time passed every seconds and broadcast it */
     public Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            Log.d("g53mdp", "in service runnable thread ");
-            Log.d("Seconds 1", "seconds: " + seconds);
             Intent i = new Intent("trackingTimer");
             i.putExtra("seconds", seconds);
             sendBroadcast(i);
@@ -135,6 +143,7 @@ public class TrackingService extends Service {
         }
     };
 
+    /* Set notification when service is running */
     private void setNotification(){
         Intent notificationIntent = new Intent(this, MainActivity.class);
         notificationIntent.addCategory(Intent.CATEGORY_LAUNCHER ) ;
@@ -151,6 +160,7 @@ public class TrackingService extends Service {
         startForeground(1, notification);
     }
 
+    /* Function that starts the location listener and timer thread */
     public void startUpdateLocation(){
         try {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
@@ -164,6 +174,7 @@ public class TrackingService extends Service {
         runnable.run();
     }
 
+    /* Function that stops the timer thread and location listener from running */
     public void stopUpdateLocation(){
         firstLocation = true;
         handler.removeCallbacks(runnable);
@@ -172,6 +183,7 @@ public class TrackingService extends Service {
         }
     }
 
+    /* Stop the service when user kills the app by swiping it from recent apps */
     @Override
     public void onTaskRemoved(Intent rootIntent) {
         super.onTaskRemoved(rootIntent);
@@ -181,10 +193,11 @@ public class TrackingService extends Service {
         stopSelf();
     }
 
+    /* Stop location listener and timer thread from running and show a toast when the service is stopped */
     @Override
     public void onDestroy() {
         super.onDestroy();
         stopUpdateLocation();
-        Toast.makeText(this, "My Service Stopped", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Tracking Service Stopped", Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.runningtracker;
 
+/* A model class to store the details of the activity required for the recycler view in activity fragment */
 public class ActivityModel {
 
     private final double totalDistance, avgSpeed, totalCaloriesBurned;

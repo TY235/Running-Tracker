@@ -38,13 +38,12 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
 
     private ActivityFragment.ActivityFragmentListener listener;
 
-
+    /* Interface for passing the values or triggers an event when the buttons are clicked */
     public interface ActivityFragmentListener {
         void onActivityClicked(int activityID);
         void onSortByDateClicked();
         void onSortByDistanceClicked();
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,15 +51,13 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_activity, container, false);
         initialiseComponents(view);
-
         return view;
     }
 
+    /* Initialise the components of the layout */
     private void initialiseComponents(View view){
         statsOverviewViewPager = view.findViewById(R.id.statsOverview);
         dotsLayout = view.findViewById(R.id.dotsLayout);
@@ -70,23 +67,25 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
         sortByButton = view.findViewById(R.id.sortByFloatingButton);
         sortByDateButton = view.findViewById(R.id.sortByDateFloatingButton);
         sortByDistanceButton = view.findViewById(R.id.sortByDistanceFloatingButton);
-        addDotsIndicator();
         sortByDistanceButton.setOnClickListener(this);
         sortByDateButton.setOnClickListener(this);
         previousBtn.setOnClickListener(this);
         nextBtn.setOnClickListener(this);
+        addDotsIndicator();
         statsOverviewViewPager.registerOnPageChangeCallback(callback);
     }
 
-
-
+    /* Set the slider adapter when MainActivity has completed the query */
     public void retrieveStatsOverviewList(ArrayList<StatsOverviewModel> statsOverviewModelList){
         statsOverviewSliderAdapter = new StatsOverviewSliderAdapter(statsOverviewModelList);
         statsOverviewViewPager.setAdapter(statsOverviewSliderAdapter);
     }
 
+    /* Function that adds dots indicator to the layout */
     public void addDotsIndicator(){
+        /* Remove any existing dots to avoid duplicating the number of dots */
         dotsLayout.removeAllViews();
+        /* Create 3 dots for AlL Time, This Month and Today's stats overview */
         dots = new TextView[3];
         for (int i = 0; i < dots.length; i++){
             dots[i] = new TextView(getContext());
@@ -94,44 +93,47 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
             dots[i].setTextSize(28);
             dotsLayout.addView(dots[i]);
         }
-        dots[0].setTextColor(ContextCompat.getColor(getContext(), R.color.black));
+        /* Set the first dot as black colour */
+        dots[0].setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
     }
 
     ViewPager2.OnPageChangeCallback callback = new ViewPager2.OnPageChangeCallback() {
         @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        }
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
         @Override
-        public void onPageScrollStateChanged(int state) {
-        }
+        public void onPageScrollStateChanged(int state) {}
 
         @Override
         public void onPageSelected(int position) {
 
             currentPage = position;
 
+            /* Loop through the dots and set the active page dots as black while others non-active page dots as default colour */
             for (int i = 0; i < dots.length; i++) {
                 if (i == position){
-                    dots[i].setTextColor(ContextCompat.getColor(getContext(), R.color.black));
+                    dots[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
                 }
                 else{
-                    dots[i].setTextColor(ContextCompat.getColor(getContext(), android.R.color.tab_indicator_text));
+                    dots[i].setTextColor(ContextCompat.getColor(requireContext(), android.R.color.tab_indicator_text));
                 }
             }
 
+            /* Disable and hide the previous button if it is on the first page */
             if (position == 0){
                 previousBtn.setEnabled(false);
                 previousBtn.setVisibility(View.INVISIBLE);
                 nextBtn.setEnabled(true);
                 nextBtn.setVisibility(View.VISIBLE);
             }
+            /* Disable and hide the next button if it is on the last page */
             else if (position == dots.length -1){
                 previousBtn.setEnabled(true);
                 previousBtn.setVisibility(View.VISIBLE);
                 nextBtn.setEnabled(false);
                 nextBtn.setVisibility(View.INVISIBLE);
             }
+            /* Enabled and show both buttons if it is neither first nor last page */
             else{
                 previousBtn.setEnabled(true);
                 previousBtn.setVisibility(View.VISIBLE);
@@ -142,33 +144,38 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
         }
     };
 
+    /* Set the recycler view adapter when MainActivity has completed the query */
     public void retrieveActivityList(ArrayList<ActivityModel> activityModelList){
         ActivityListAdapter recipesListAdapter = new ActivityListAdapter(activityModelList, this);
         activityList.setAdapter(recipesListAdapter);
         activityList.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
-
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.sortByDateFloatingButton){
+            /* Call sort by date function of the class that implemented the interface (MainActivity) and close the fab menu */
             listener.onSortByDateClicked();
             sortByButton.close(true);
         }
         else if (id == R.id.sortByDistanceFloatingButton){
+            /* Call sort by distance function of the class that implemented the interface (MainActivity) and close the fab menu */
             listener.onSortByDistanceClicked();
             sortByButton.close(true);
 
         }
         else if (id == R.id.previousButton){
+            /* Sets the current page to current page-1 if previous button is clicked */
             statsOverviewViewPager.setCurrentItem(--currentPage);
         }
         else if (id == R.id.nextButton){
+            /* Sets the current page to current page+1 if next button is clicked */
             statsOverviewViewPager.setCurrentItem(++currentPage);
         }
     }
 
+    /* Send activity ID to the class that implemented the interface (MainActivity) */
     @Override
     public void onActivityClicked(int activityID) {
         listener.onActivityClicked(activityID);
@@ -177,7 +184,7 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        // Check if MainActivity implemented ActivityFragmentListener interface
+        /* Check if MainActivity implemented ActivityFragmentListener interface when the fragment is attached to the class that implemented the interface (MainActivity) */
         if (context instanceof ActivityFragment.ActivityFragmentListener){
             listener = (ActivityFragment.ActivityFragmentListener) context;
         }
@@ -186,9 +193,9 @@ public class ActivityFragment extends Fragment implements View.OnClickListener, 
         }
     }
 
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        listener = null;
-//    }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
+    }
 }

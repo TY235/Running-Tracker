@@ -15,8 +15,10 @@ import java.math.RoundingMode;
 import java.util.Locale;
 import java.util.Objects;
 
+/* Utility class that provides general functions that are often used */
 public final class Utilities {
 
+    /* Convert meter to kilometer and round to 2 decimal places */
     public static double convertMtoKM(double meter){
         if (meter == 0){
             return 0;
@@ -24,6 +26,7 @@ public final class Utilities {
         return round((meter/1000), 2);
     }
 
+    /* Convert seconds to MM:SS or HH:MM:SS */
     public static String convertStoHMS(int totalTimeTakenInSeconds){
         int hours = totalTimeTakenInSeconds / 3600;
         int minutes = (totalTimeTakenInSeconds % 3600) / 60;
@@ -34,6 +37,24 @@ public final class Utilities {
         return String.format(Locale.ENGLISH, "%02d:%02d:%02d", hours, minutes, seconds);
     }
 
+    /* Format time in HHMM to HH:MM */
+    public static String formatTimeToHHMM(int time){
+        String timeString = String.valueOf(time);
+        if (timeString.length() == 5){
+            return timeString.substring(0, 1) + ":" + timeString.substring(1, 3);
+        }
+        else {
+            return timeString.substring(0, 2) + ":" + timeString.substring(2, 4);
+        }
+    }
+
+    /* Format date in YYYYMMDD to DD/MM/YYYY */
+    public static String formatDateToDDMMYYY(int date){
+        String dateString = String.valueOf(date);
+        return dateString.substring(6, 8) + "/" + dateString.substring(4, 6) + "/" +  dateString.substring(0, 4);
+    }
+
+    /* Calculate pace in minutes per kilometer and round to 2 decimal places */
     public static double calculatePaceInMinutesPerKM(double totalDistanceTravelledInMeters, int totalTimeTakenInSeconds){
         double pace;
         double totalDistanceTravelledInKM = totalDistanceTravelledInMeters / 1000;
@@ -47,6 +68,7 @@ public final class Utilities {
         return 0.00;
     }
 
+    /* Calculate speed in meters per second and round to 2 decimal places */
     public static double calculateSpeedInMetersPerSecond(double totalDistanceTravelledInMeters, int totalTimeTakenInSeconds){
         double speed;
         if (totalTimeTakenInSeconds != 0){
@@ -58,6 +80,7 @@ public final class Utilities {
         return 0.00;
     }
 
+    /* Calculate total calories burned in kcal and round it to 1 decimal place */
     public static double calculateCaloriesBurned(double heightInMeter, double weightInKG, double speedInMetersPerSecond, int totalTimeTakenInSeconds){
         double calories;
         double totalTimeTakenInMinutes;
@@ -71,6 +94,7 @@ public final class Utilities {
         return 0.00;
     }
 
+    /* Round double values provided to any decimal places */
     public static double round(double value, int places) {
         if (places < 0) {
             throw new IllegalArgumentException();
@@ -91,10 +115,12 @@ public final class Utilities {
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
+    /* Convert unicode to their respective emoji */
     public static String getEmojiByUnicode(int unicode){
         return new String(Character.toChars(unicode));
     }
 
+    /* Convert weather string to respective weather icon */
     public static int convertWeatherIcon(String weather){
         switch (weather){
             case "Sunny":
@@ -113,6 +139,7 @@ public final class Utilities {
         }
     }
 
+    /* Convert satisfaction string to respective satisfaction icon */
     public static int convertSatisfactionIcon(String satisfaction){
         switch (satisfaction){
             case "Excellent":
@@ -126,23 +153,9 @@ public final class Utilities {
             case "Poor":
                 return R.drawable.ic_poor;
             default:
-                // If the weather is out of range, remove the background
+                // If the satisfaction is out of range, remove the background
                 return 0;
         }
     }
 
-    public static String formatDateToDDMMYYY(int date){
-        String dateString = String.valueOf(date);
-        return dateString.substring(6, 8) + "/" + dateString.substring(4, 6) + "/" +  dateString.substring(0, 4);
-    }
-
-    public static String formatTimeToHHMM(int time){
-        String timeString = String.valueOf(time);
-        if (timeString.length() == 5){
-            return timeString.substring(0, 1) + ":" + timeString.substring(1, 3);
-        }
-        else {
-            return timeString.substring(0, 2) + ":" + timeString.substring(2, 4);
-        }
-    }
 }

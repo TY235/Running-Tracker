@@ -1,6 +1,5 @@
 package com.example.runningtracker;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Locale;
 
+/* Adapter for stats overview in the activity fragment */
 public class StatsOverviewSliderAdapter extends RecyclerView.Adapter<StatsOverviewSliderAdapter.ViewHolder>{
 
     private final ArrayList<StatsOverviewModel> statsOverviewModels;
     String[] headings = {"All Time", "This Month", "Today"};
 
+    /* Get the ArrayList of stats overview that consists of All Time, This Month and Today's records */
     public StatsOverviewSliderAdapter(ArrayList<StatsOverviewModel> statsOverviewModels){
         this.statsOverviewModels = statsOverviewModels;
     }
@@ -30,16 +31,13 @@ public class StatsOverviewSliderAdapter extends RecyclerView.Adapter<StatsOvervi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        /* Display the speed as N/A if there is no run detected */
         if (statsOverviewModels.get(position).getTotalRuns() == 0){
             holder.highestSpeedView.setText("N/A");
         }
         else {
             holder.highestSpeedView.setText(String.format(Locale.ENGLISH, "%.2f", statsOverviewModels.get(position).getHighestSpeed()));
         }
-        Log.d("vp", "on bind distance: " + statsOverviewModels.get(position).getTotalDistance());
-        Log.d("vp", "on bind runs: " + statsOverviewModels.get(position).getTotalRuns());
-        Log.d("vp", "on bind speed: " + statsOverviewModels.get(position).getHighestSpeed());
-        Log.d("vp", "on bind calories: " + statsOverviewModels.get(position).getTotalCaloriesBurned());
         holder.headingView.setText(headings[position]);
         holder.totalDistanceView.setText(String.format(Locale.ENGLISH, "%.2f", statsOverviewModels.get(position).getTotalDistance()));
         holder.totalRunsView.setText(String.format(Locale.ENGLISH, "%d", statsOverviewModels.get(position).getTotalRuns()));
@@ -52,10 +50,11 @@ public class StatsOverviewSliderAdapter extends RecyclerView.Adapter<StatsOvervi
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
+
         TextView totalDistanceView, totalRunsView, highestSpeedView, totalCaloriesView, headingView;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            Log.d("vp", "ViewHolder: view founded!!!!!!!!" );
             totalDistanceView = itemView.findViewById(R.id.statsOverviewItems_totalDistance);
             totalRunsView = itemView.findViewById(R.id.statsOverviewItems_totalRuns);
             highestSpeedView = itemView.findViewById(R.id.statsOverviewItems_highestSpeed);

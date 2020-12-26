@@ -12,6 +12,8 @@ public class TrackingNotification extends Application {
         super.onCreate();
         createNotificationChannel();
     }
+
+    /* Create a notification channel for tracking service */
     private void createNotificationChannel() {
         NotificationChannel serviceChannel = new NotificationChannel(
                 CHANNEL_ID,

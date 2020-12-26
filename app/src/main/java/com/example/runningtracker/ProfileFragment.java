@@ -15,13 +15,13 @@ import com.google.android.material.button.MaterialButton;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener{
 
-
     private double userHeightInCM, userWeightInKG;
     private EditText nameView, heightView, weightView;
     private ProfileFragmentListener listener;
 
+    /* Interface for passing the values or triggers an event when the buttons are clicked */
     public interface ProfileFragmentListener {
-        void onUserDetailsSent(String userName, double userHeightInCM, double userWeightInKG);
+        void onProfileUpdateButtonClicked(String userName, double userHeightInCM, double userWeightInKG);
     }
 
     public ProfileFragment() {}
@@ -32,14 +32,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         initialiseComponents(view);
         return view;
     }
 
+    /* Initialise the components of the layout */
     private void initialiseComponents(View view){
         nameView = view.findViewById(R.id.editUserName);
         heightView = view.findViewById(R.id.editUserHeight);
@@ -48,6 +47,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         updateBtn.setOnClickListener(this);
     }
 
+    /* Update the edit text views when the details are received */
     public void updateEditTextView(String name, double height, double weight){
         if (!name.equals("")){
             nameView.setText(name);
@@ -62,30 +62,32 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        String userName = nameView.getText().toString();
+        String userName = nameView.getText().toString().trim();
 
-        if (heightView.getText().toString().isEmpty()){
+        if (heightView.getText().toString().trim().isEmpty()){
+            /* Shows error if height column is left empty when update button is clicked */
             heightView.setError("Height is required " + Utilities.getEmojiByUnicode(0x1F625));
         }
         else{
             userHeightInCM = Utilities.round(Double.parseDouble(heightView.getText().toString()), 2);
         }
-        if (weightView.getText().toString().isEmpty()){
+        if (weightView.getText().toString().trim().isEmpty()){
+            /* Shows error if weight column is left empty when update button is clicked */
             weightView.setError("Weight is required " + Utilities.getEmojiByUnicode(0x1F625));
         }
         else{
             userWeightInKG = Utilities.round(Double.parseDouble(weightView.getText().toString()), 2);
         }
-        if (!heightView.getText().toString().isEmpty() && !weightView.getText().toString().isEmpty()){
-            listener.onUserDetailsSent(userName, userHeightInCM, userWeightInKG);
-
+        if (!heightView.getText().toString().trim().isEmpty() && !weightView.getText().toString().trim().isEmpty()){
+            /* Send user's name, height and weight to the class that implemented the interface (MainActivity) if they are both not empty */
+            listener.onProfileUpdateButtonClicked(userName, userHeightInCM, userWeightInKG);
         }
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        // Check if MainActivity implemented ProfileFragmentListener interface
+        /* Check if MainActivity implemented ProfileFragmentListener interface when the fragment is attached to the class that implemented the interface (MainActivity) */
         if (context instanceof ProfileFragment.ProfileFragmentListener){
             listener = (ProfileFragment.ProfileFragmentListener) context;
         }
