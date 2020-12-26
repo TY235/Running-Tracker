@@ -23,13 +23,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
-        android:textSize="36sp"
         android:textColor="@android:color/black"
+        android:textSize="36sp"
+        android:text="@string/example_distance"
         app:layout_constraintBottom_toTopOf="@id/statsOverviewItems_highestSpeed"
         app:layout_constraintStart_toStartOf="@id/statsOverviewItems_totalDistanceHeading"
         app:layout_constraintEnd_toEndOf="@id/statsOverviewItems_totalDistanceHeading"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/example_distance" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/statsOverviewItems_totalDistanceHeading"
@@ -46,11 +46,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/example_no_of_runs"
         app:layout_constraintEnd_toEndOf="@id/statsOverviewItems_totalRunHeading"
         app:layout_constraintStart_toStartOf="@id/statsOverviewItems_totalRunHeading"
-        app:layout_constraintBottom_toTopOf="@id/statsOverviewItems_totalRunHeading"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/example_no_of_runs" />
+        app:layout_constraintBottom_toTopOf="@id/statsOverviewItems_totalRunHeading" />
 
     <TextView
         android:id="@+id/statsOverviewItems_totalRunHeading"
@@ -67,11 +67,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/example_speed"
         app:layout_constraintEnd_toEndOf="@id/statsOverviewItems_highestSpeedHeading"
         app:layout_constraintStart_toStartOf="@id/statsOverviewItems_highestSpeedHeading"
-        app:layout_constraintBottom_toTopOf="@id/statsOverviewItems_highestSpeedHeading"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/example_speed" />
+        app:layout_constraintBottom_toTopOf="@id/statsOverviewItems_highestSpeedHeading" />
 
     <TextView
         android:id="@+id/statsOverviewItems_highestSpeedHeading"
@@ -90,11 +90,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/example_calories_burned"
         app:layout_constraintBottom_toTopOf="@id/statsOverviewItems_totalCaloriesBurnedHeading"
         app:layout_constraintStart_toStartOf="@id/statsOverviewItems_totalCaloriesBurnedHeading"
-        app:layout_constraintEnd_toEndOf="@id/statsOverviewItems_totalCaloriesBurnedHeading"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/example_calories_burned" />
+        app:layout_constraintEnd_toEndOf="@id/statsOverviewItems_totalCaloriesBurnedHeading" />
 
     <TextView
         android:id="@+id/statsOverviewItems_totalCaloriesBurnedHeading"
@@ -105,9 +105,6 @@
         app:layout_constraintTop_toTopOf="@id/statsOverviewItems_highestSpeedHeading"
         app:layout_constraintStart_toEndOf="@id/statsOverviewItems_highestSpeedHeading"
         app:layout_constraintEnd_toEndOf="parent" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

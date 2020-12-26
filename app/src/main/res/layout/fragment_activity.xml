@@ -43,21 +43,15 @@
         android:elevation="3dp"
         android:contentDescription="@string/stats_overview_btn_description"
         android:src="@drawable/ic_stats_overview_next" />
+
     <LinearLayout
         android:id="@+id/dotsLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="@id/statsOverview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/horizontalDividerLine" />
-
-    <View
-        android:id="@+id/horizontalDividerLine"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@id/statsOverview" />
+        app:layout_constraintEnd_toEndOf="@id/statsOverview"
+        app:layout_constraintStart_toStartOf="@id/statsOverview" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activityList"
@@ -75,12 +69,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        fab:menu_colorNormal="@color/maximum_blue_green"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu_colorPressed="@color/medium_turquoise"
         fab:menu_animationDelayPerItem="50"
         fab:menu_backgroundColor="@android:color/transparent"
         fab:menu_buttonSpacing="0dp"
+        fab:menu_colorNormal="@color/maximum_blue_green"
+        app:menu_colorPressed="@color/medium_turquoise"
         fab:menu_colorRipple="#99FFFFFF"
         fab:menu_fab_hide_animation="@anim/hide_to_bottom"
         fab:menu_fab_show_animation="@anim/show_from_bottom"

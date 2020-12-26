@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ProfileFragment">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:contentDescription="@string/profile_illustration_description"
+        android:src="@drawable/ic_running"
+        app:layout_constraintBottom_toTopOf="@id/profileCard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/profileCard"
         android:layout_width="340dp"
@@ -54,10 +65,10 @@
                 android:fontFamily="sans-serif-condensed"
                 android:importantForAutofill="no"
                 android:inputType="textPersonName|textNoSuggestions"
-                app:layout_constraintBottom_toBottomOf="@+id/userName"
+                app:layout_constraintBottom_toBottomOf="@id/userName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/userName"
-                app:layout_constraintTop_toTopOf="@+id/userName" />
+                app:layout_constraintTop_toTopOf="@id/userName" />
 
             <TextView
                 android:id="@+id/userHeight"
@@ -66,7 +77,7 @@
                 android:fontFamily="@font/poppinsbold"
                 android:text="@string/height_heading"
                 app:layout_constraintBottom_toTopOf="@id/userWeight"
-                app:layout_constraintStart_toStartOf="@+id/userName"
+                app:layout_constraintStart_toStartOf="@id/userName"
                 app:layout_constraintTop_toBottomOf="@id/userName" />
 
             <EditText
@@ -78,10 +89,10 @@
                 android:hint="@string/height_input_hint"
                 android:importantForAutofill="no"
                 android:inputType="numberDecimal|textNoSuggestions"
-                app:layout_constraintBottom_toBottomOf="@+id/userHeight"
+                app:layout_constraintBottom_toBottomOf="@id/userHeight"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/userHeight"
-                app:layout_constraintTop_toTopOf="@+id/userHeight" />
+                app:layout_constraintTop_toTopOf="@id/userHeight" />
 
             <TextView
                 android:id="@+id/userWeight"
@@ -90,7 +101,7 @@
                 android:text="@string/weight_heading"
                 android:fontFamily="@font/poppinsbold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/userName"
+                app:layout_constraintStart_toStartOf="@id/userName"
                 app:layout_constraintTop_toBottomOf="@id/userHeight" />
 
             <EditText
@@ -102,10 +113,10 @@
                 android:hint="@string/weight_input_hint"
                 android:importantForAutofill="no"
                 android:inputType="numberDecimal|textNoSuggestions"
-                app:layout_constraintBottom_toBottomOf="@+id/userWeight"
+                app:layout_constraintBottom_toBottomOf="@id/userWeight"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/userWeight"
-                app:layout_constraintTop_toTopOf="@+id/userWeight" />
+                app:layout_constraintTop_toTopOf="@id/userWeight" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -132,20 +143,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profileCard" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:contentDescription="@string/profile_illustration_description"
-        android:src="@drawable/ic_running"
-        app:layout_constraintBottom_toTopOf="@+id/profileCard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

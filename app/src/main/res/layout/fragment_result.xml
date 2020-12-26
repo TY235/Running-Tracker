@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ResultFragment">
 
-    <!--  Result Layout  -->
     <com.google.android.gms.maps.MapView
         android:id="@+id/resultMapView"
         android:layout_width="match_parent"
@@ -102,7 +101,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:layout_marginEnd="13dp"
-        android:elevation="10dp"
         android:fontFamily="@font/futura_extra_bold_oblique"
         android:gravity="end"
         android:text="@string/distance_with_unit_heading"
@@ -114,7 +112,6 @@
         android:id="@+id/resultDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="10dp"
         android:fontFamily="@font/futura_extra_bold_oblique"
         android:gravity="end"
         android:text="@string/example_distance"
@@ -131,7 +128,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:layout_marginEnd="13dp"
-        android:elevation="10dp"
         android:fontFamily="@font/futura_extra_bold_oblique"
         android:gravity="end"
         android:text="@string/pace_with_unit_heading"
@@ -143,7 +139,6 @@
         android:id="@+id/resultPace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="10dp"
         android:fontFamily="@font/futura_extra_bold_oblique"
         android:gravity="end"
         android:text="@string/example_pace"
@@ -158,7 +153,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="33dp"
-        android:elevation="10dp"
         android:fontFamily="@font/futura_extra_bold_oblique"
         android:gravity="start"
         android:text="@string/weather_heading"
@@ -172,15 +166,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:spinnerMode="dropdown"
-        app:layout_constraintEnd_toStartOf="@+id/saveButton"
-        app:layout_constraintStart_toStartOf="@+id/weatherPrompt"
-        app:layout_constraintTop_toBottomOf="@+id/weatherPrompt" />
+        app:layout_constraintEnd_toStartOf="@id/saveButton"
+        app:layout_constraintStart_toStartOf="@id/weatherPrompt"
+        app:layout_constraintTop_toBottomOf="@id/weatherPrompt" />
 
     <TextView
         android:id="@+id/satisfactionPrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="10dp"
         android:layout_marginTop="33dp"
         android:fontFamily="@font/futura_extra_bold_oblique"
         android:gravity="start"
@@ -197,7 +190,31 @@
         app:layout_constraintWidth_percent="0.36"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/satisfactionPrompt" />
+        app:layout_constraintTop_toBottomOf="@id/satisfactionPrompt" />
+
+    <com.google.android.material.button.MaterialButton
+        app:elevation="3dp"
+        android:translationZ="3dp"
+        android:stateListAnimator="@null"
+        android:id="@+id/discardButton"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:backgroundTint="#ED5E68"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        android:padding="0dp"
+        app:icon="@drawable/ic_delete"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/saveButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
+        style="@style/Widget.MaterialComponents.Button.Icon" />
 
     <com.google.android.material.button.MaterialButton
         app:elevation="3dp"
@@ -221,28 +238,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.9" />
 
-    <com.google.android.material.button.MaterialButton
-        app:elevation="3dp"
-        android:translationZ="3dp"
-        android:stateListAnimator="@null"
-        android:id="@+id/discardButton"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        android:layout_width="49dp"
-        android:layout_height="49dp"
-        android:backgroundTint="#ED5E68"
-        android:insetLeft="0dp"
-        android:insetTop="0dp"
-        android:insetRight="0dp"
-        android:insetBottom="0dp"
-        android:padding="0dp"
-        app:icon="@drawable/ic_delete"
-        app:iconGravity="textStart"
-        app:iconPadding="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/saveButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

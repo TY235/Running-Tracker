@@ -85,7 +85,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/rightGuideline"
             app:layout_constraintHorizontal_bias="0.66"
-            app:layout_constraintStart_toEndOf="@+id/runningTimeTaken"
+            app:layout_constraintStart_toEndOf="@id/runningTimeTaken"
             app:layout_constraintTop_toBottomOf="@id/distance" />
 
         <TextView
@@ -135,7 +135,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.97" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
