@@ -31,7 +31,7 @@ public final class Utilities {
         int hours = totalTimeTakenInSeconds / 3600;
         int minutes = (totalTimeTakenInSeconds % 3600) / 60;
         int seconds = totalTimeTakenInSeconds % 60;
-        if (hours ==0){
+        if (hours == 0){
             return String.format(Locale.ENGLISH, "%02d:%02d", minutes, seconds);
         }
         return String.format(Locale.ENGLISH, "%02d:%02d:%02d", hours, minutes, seconds);
