@@ -33,12 +33,17 @@
     <string name="example_speed_with_heading">69 m/s</string>
     <string name="example_calories_burned_with_heading">6969 kcal</string>
 
+    <string name="example_tracking_distance"><br>Distance\n</br><br>0.00\n</br>km</string>
+    <string name="example_tracking_time_taken"><br>Time\n</br><br>00:00\n</br>min</string>
+    <string name="example_tracking_pace"><br>Pace\n</br><br>0.00\n</br>min/km</string>
+
     <string name="distance_with_unit_heading">Distance(km)</string>
     <string name="pace_with_unit_heading">Pace(min/km)</string>
     <string name="speed_with_unit_heading">Speed(m/s)</string>
     <string name="distance_unit_heading">Kilometers</string>
     <string name="calories_unit_heading">Kcal</string>
     <string name="total_calories_unit_heading">Total kcal</string>
+
     <string name="distance_heading">Distance</string>
     <string name="pace_heading">Pace</string>
     <string name="speed_heading">Speed</string>
