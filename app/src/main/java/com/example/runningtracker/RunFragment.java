@@ -227,16 +227,18 @@ public class RunFragment extends Fragment implements View.OnClickListener, OnMap
 
     /* Zoom out the map to include the whole route */
     private void zoomOutMapViewToIncludeWholeRoute(ArrayList<ArrayList<LatLng>> polyline){
-        /* Create a builder to include all the points */
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        for (ArrayList<LatLng> line : polyline){
-            for (LatLng latLng : line) {
-                builder.include(latLng);
+        if (polyline != null){
+            /* Create a builder to include all the points */
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            for (ArrayList<LatLng> line : polyline){
+                for (LatLng latLng : line) {
+                    builder.include(latLng);
+                }
             }
+            final LatLngBounds bounds = builder.build();
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 136);
+            map.animateCamera(cu);
         }
-        final LatLngBounds bounds = builder.build();
-        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 136);
-        map.animateCamera(cu);
     }
 
     @SuppressWarnings("unchecked")

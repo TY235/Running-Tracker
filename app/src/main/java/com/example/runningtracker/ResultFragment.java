@@ -103,7 +103,9 @@ public class ResultFragment extends Fragment implements AdapterView.OnItemSelect
     /* Function to retrieve the details when MainActivity has completed the query */
     @SuppressWarnings("unchecked")
     public void retrieveStats(ArrayList<ArrayList<LatLng>> polyline, int totalTimeTakenInSeconds, double distanceInKM, double paceInMinutesPerKM, double speedInMetersPerSecond, double userHeight, double userWeight){
-        this.polyline = (ArrayList<ArrayList<LatLng>>) polyline.clone();
+        if (polyline != null){
+            this.polyline = (ArrayList<ArrayList<LatLng>>) polyline.clone();
+        }
         this.totalTimeTakenInSeconds = totalTimeTakenInSeconds;
         this.totalDistanceTravelledInKM = distanceInKM;
         this.paceInMinutesPerKM = paceInMinutesPerKM;
@@ -140,50 +142,52 @@ public class ResultFragment extends Fragment implements AdapterView.OnItemSelect
     private void drawRouteOnMap(){
         /* Reset the map */
         map.clear();
-        /* Add starting point marker */
-        map.addMarker(
-                new MarkerOptions()
-                        .position(polyline.get(0).get(0))
-                        .icon(Utilities.bitmapDescriptorFromVector(getActivity(), R.drawable.ic_starting_point))
-        );
-
-        /* Draw polyline for each polyline that is stored in polyline ArrayList */
-        for (ArrayList<LatLng> coordinates:polyline){
-            map.addPolyline(
-                    new PolylineOptions()
-                            .width(26f)
-                            .color(Color.MAGENTA)
-                            .addAll(coordinates)
+        if (polyline != null){
+            /* Add starting point marker */
+            map.addMarker(
+                    new MarkerOptions()
+                            .position(polyline.get(0).get(0))
+                            .icon(Utilities.bitmapDescriptorFromVector(getActivity(), R.drawable.ic_starting_point))
             );
-        }
 
-        /* Find the last coordinate from the last polyline stored */
-        ArrayList<LatLng> lastPolyline = polyline.get(polyline.size()-1);
-        LatLng lastCoordinate = lastPolyline.get(lastPolyline.size()-1);
-        /* Add finishing point marker */
-        map.addMarker(
-                new MarkerOptions()
-                        .position(lastCoordinate)
-                        .icon(Utilities.bitmapDescriptorFromVector(getActivity(), R.drawable.ic_finishing_point))
-        );
-
-        /* Create a builder to include all the points */
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        for (ArrayList<LatLng> line : polyline){
-            for (LatLng latLng : line) {
-                builder.include(latLng);
+            /* Draw polyline for each polyline that is stored in polyline ArrayList */
+            for (ArrayList<LatLng> coordinates:polyline){
+                map.addPolyline(
+                        new PolylineOptions()
+                                .width(26f)
+                                .color(Color.MAGENTA)
+                                .addAll(coordinates)
+                );
             }
+
+            /* Find the last coordinate from the last polyline stored */
+            ArrayList<LatLng> lastPolyline = polyline.get(polyline.size()-1);
+            LatLng lastCoordinate = lastPolyline.get(lastPolyline.size()-1);
+            /* Add finishing point marker */
+            map.addMarker(
+                    new MarkerOptions()
+                            .position(lastCoordinate)
+                            .icon(Utilities.bitmapDescriptorFromVector(getActivity(), R.drawable.ic_finishing_point))
+            );
+
+            /* Create a builder to include all the points */
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            for (ArrayList<LatLng> line : polyline){
+                for (LatLng latLng : line) {
+                    builder.include(latLng);
+                }
+            }
+
+            /* Define the map view size */
+            int height = getResources().getDisplayMetrics().heightPixels/3;
+            int width = getResources().getDisplayMetrics().widthPixels;
+            int padding = (int) (width * 0.16);
+
+            /* Zoom out the map to include the whole route */
+            final LatLngBounds bounds = builder.build();
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+            map.animateCamera(cu);
         }
-
-        /* Define the map view size */
-        int height = getResources().getDisplayMetrics().heightPixels/3;
-        int width = getResources().getDisplayMetrics().widthPixels;
-        int padding = (int) (width * 0.16);
-
-        /* Zoom out the map to include the whole route */
-        final LatLngBounds bounds = builder.build();
-        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
-        map.animateCamera(cu);
     }
 
     /* Set the respective values for weather and satisfaction when the items of the drop down list is clicked */
